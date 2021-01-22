@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".dashboard"
-            android:label="@string/title_activity_dashboard" >
+            android:name=".screen"
+            android:label="@string/title_activity_screen" >
         </activity>
         <activity android:name=".homeScreen" />
         <activity android:name=".registration" />

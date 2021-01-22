@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LogRegForm</string>
+    <string name="app_name">FINDJOB</string>
     <string name="FullnameReg">Full name</string>
     <string name="emailReg">Email</string>
     <string name="passwordReg">Password</string>
@@ -16,4 +16,6 @@
     <string name="title_post">Post a Job</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_dashboards">MainActivity</string>
+    <string name="title_activity_screen">MainActivity</string>
 </resources>
