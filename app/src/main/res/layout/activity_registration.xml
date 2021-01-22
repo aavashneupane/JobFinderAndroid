@@ -162,8 +162,9 @@
                 android:text="@string/sign_upReg"
                 android:textColor="#FFFFFF" />
 
-            <TextView
-                android:id="@+id/tvSignIn"
+            <Button
+                android:background="@drawable/btnsignup_gradient"
+                android:id="@+id/btnSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

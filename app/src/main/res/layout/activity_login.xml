@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:gravity="center"
     tools:context=".LoginActivity">
 
 
@@ -11,7 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+
         android:layout_marginBottom="10dp"
 
         >
@@ -103,17 +104,11 @@
                 android:textColor="#FFFFFF" />
 
 
-            <ImageView
-                android:id="@+id/ivFacebook"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:layout_marginTop="10dp"
-                android:contentDescription="Social site button"
-                android:src="@drawable/btn_twitter" />
 
 
-            <TextView
-                android:id="@+id/tvSignIn"
+            <Button
+                android:background="@drawable/btnsignin_gradient"
+                android:id="@+id/btnSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
