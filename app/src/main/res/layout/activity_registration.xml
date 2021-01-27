@@ -170,7 +170,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="@string/signin_redirect"
-                android:textColor="@color/gray" />
+                android:textColor="#FFFFFF" />
 
 
 
