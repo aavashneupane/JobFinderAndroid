@@ -40,7 +40,7 @@ class registration : AppCompatActivity(), View.OnClickListener {
         atvPasswordReg = findViewById(R.id.atvPasswordReg)
 
         btnSignUp.setOnClickListener {
-
+            if (isValid()){
 
                 val fullname = atvUsernameReg.text.toString()
                 val age = ageReg.text.toString()
@@ -59,7 +59,7 @@ class registration : AppCompatActivity(), View.OnClickListener {
 
             }
 
-
+        }
 
         btnSignIn.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -69,9 +69,41 @@ class registration : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun isValid(): Boolean {
+        when {
+            atvUsernameReg.text.isEmpty() -> {
+                atvUsernameReg.error = "Field must not be empty"
+                return false
+            }
+            ageReg.text.isEmpty() -> {
+                ageReg.error = "Field must not be empty"
+                return false
+            }
 
+            countryReg.text.isEmpty() -> {
+                countryReg.error = "Field must not be empty"
+                return false
+            }
+            phoneReg.text.isEmpty() -> {
+                phoneReg.error = "Field must not be empty"
+                return false
+            }
+            atvPasswordReg.text.isEmpty() ->{
+                atvPasswordReg.error = "Field must not be empty"
+                return false
+            }
+
+            atvEmailReg.text.isEmpty() -> {
+                atvEmailReg.error = "Field must not be empty"
+                return false
+            }
+        }
+        return true
+
+
+    }
 
     override fun onClick(v: View?) {
-
+        TODO("Not yet implemented")
     }
 }
