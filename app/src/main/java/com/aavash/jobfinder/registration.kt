@@ -4,9 +4,23 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.Toast
+import com.aavash.jobfinder.db.UserDB
+import com.aavash.jobfinder.entity.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class registration : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var atvUsernameReg:AutoCompleteTextView
+    private lateinit var ageReg:AutoCompleteTextView
+    private lateinit var countryReg:AutoCompleteTextView
+    private lateinit var phoneReg:AutoCompleteTextView
+    private lateinit var atvEmailReg:AutoCompleteTextView
+    private lateinit var atvPasswordReg:AutoCompleteTextView
 
     private lateinit var btnSignUp:Button
     private lateinit var btnSignIn:Button
@@ -18,20 +32,40 @@ class registration : AppCompatActivity(), View.OnClickListener {
         btnSignIn=findViewById(R.id.btnSignIn)
         btnSignUp=findViewById(R.id.btnSignUp)
 
+        atvUsernameReg=findViewById(R.id.atvUsernameReg)
+        ageReg=findViewById(R.id.ageReg)
+        countryReg=findViewById(R.id.countryReg)
+        phoneReg=findViewById(R.id.phoneReg)
+        atvEmailReg=findViewById(R.id.atvEmailReg)
+        atvPasswordReg=findViewById(R.id.atvPasswordReg)
+
+        btnSignUp.setOnClickListener {
+            val fullname = atvUsernameReg.text.toString()
+            val age = ageReg.text.toString()
+            val country = countryReg.text.toString()
+            val phone = phoneReg.text.toString()
+            val email = atvEmailReg.text.toString()
+            val password=atvPasswordReg.text.toString()
+
+
+        val user = User(fullname, age, country, phone, email, password)
+        CoroutineScope(Dispatchers.IO).launch {
+
+            UserDB.getInstance(this@registration).getUserDAO().registerUser(user)
+        }
+        Toast.makeText(this, "User registered", Toast.LENGTH_SHORT).show()
+
+        }
+
+        btnSignIn.setOnClickListener {
+            val intent=Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btnSignIn->{
-                val intent= Intent(this,LoginActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.btnSignUp->{
-                val intent= Intent(this,LoginActivity::class.java)
-                startActivity(intent)
-            }
 
-        }
     }
 }
