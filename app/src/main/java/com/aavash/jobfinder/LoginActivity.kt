@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        getSharedPref()
 
         atvEmailLog=findViewById(R.id.atvEmailLog)
         atvPasswordLog=findViewById(R.id.atvPasswordLog)
@@ -35,6 +36,8 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
         btnSignIn.setOnClickListener{
             login()
+            saveSharedPref()
+
         }
 
         btnSignUp.setOnClickListener {
@@ -70,6 +73,35 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         }
 
     }
+
+    private fun saveSharedPref(){
+
+        val username=atvEmailLog.text.toString()
+        val password = atvPasswordLog.text.toString()
+        val sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE)
+
+        val editor =sharedPref.edit()
+        editor.putString("Username",username)
+        editor.putString("Password",password)
+        editor.apply()
+        Toast.makeText(
+                this@LoginActivity,
+                "Username nad password saved",
+                Toast.LENGTH_SHORT
+        ).show()
+
+
+    }
+
+    private fun getSharedPref(){
+        val sharedPref= getSharedPreferences("MyPref", MODE_PRIVATE)
+        val username=sharedPref.getString("username","")
+        val password=sharedPref.getString("password","")
+//        Toast.makeText(this,"Username: $username and password : $password ",Toast.LENGTH_SHORT).show()
+
+    }
+
+
 
     override fun onClick(v: View?) {
 

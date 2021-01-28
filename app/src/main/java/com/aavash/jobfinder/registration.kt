@@ -15,55 +15,61 @@ import kotlinx.coroutines.launch
 
 class registration : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var atvUsernameReg:AutoCompleteTextView
-    private lateinit var ageReg:AutoCompleteTextView
-    private lateinit var countryReg:AutoCompleteTextView
-    private lateinit var phoneReg:AutoCompleteTextView
-    private lateinit var atvEmailReg:AutoCompleteTextView
-    private lateinit var atvPasswordReg:AutoCompleteTextView
+    private lateinit var atvUsernameReg: AutoCompleteTextView
+    private lateinit var ageReg: AutoCompleteTextView
+    private lateinit var countryReg: AutoCompleteTextView
+    private lateinit var phoneReg: AutoCompleteTextView
+    private lateinit var atvEmailReg: AutoCompleteTextView
+    private lateinit var atvPasswordReg: AutoCompleteTextView
 
-    private lateinit var btnSignUp:Button
-    private lateinit var btnSignIn:Button
+    private lateinit var btnSignUp: Button
+    private lateinit var btnSignIn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        btnSignIn=findViewById(R.id.btnSignIn)
-        btnSignUp=findViewById(R.id.btnSignUp)
+        btnSignIn = findViewById(R.id.btnSignIn)
+        btnSignUp = findViewById(R.id.btnSignUp)
 
-        atvUsernameReg=findViewById(R.id.atvUsernameReg)
-        ageReg=findViewById(R.id.ageReg)
-        countryReg=findViewById(R.id.countryReg)
-        phoneReg=findViewById(R.id.phoneReg)
-        atvEmailReg=findViewById(R.id.atvEmailReg)
-        atvPasswordReg=findViewById(R.id.atvPasswordReg)
+        atvUsernameReg = findViewById(R.id.atvUsernameReg)
+        ageReg = findViewById(R.id.ageReg)
+        countryReg = findViewById(R.id.countryReg)
+        phoneReg = findViewById(R.id.phoneReg)
+        atvEmailReg = findViewById(R.id.atvEmailReg)
+        atvPasswordReg = findViewById(R.id.atvPasswordReg)
 
         btnSignUp.setOnClickListener {
-            val fullname = atvUsernameReg.text.toString()
-            val age = ageReg.text.toString()
-            val country = countryReg.text.toString()
-            val phone = phoneReg.text.toString()
-            val email = atvEmailReg.text.toString()
-            val password=atvPasswordReg.text.toString()
 
 
-        val user = User(fullname, age, country, phone, email, password)
-        CoroutineScope(Dispatchers.IO).launch {
+                val fullname = atvUsernameReg.text.toString()
+                val age = ageReg.text.toString()
+                val country = countryReg.text.toString()
+                val phone = phoneReg.text.toString()
+                val email = atvEmailReg.text.toString()
+                val password = atvPasswordReg.text.toString()
 
-            UserDB.getInstance(this@registration).getUserDAO().registerUser(user)
-        }
-        Toast.makeText(this, "User registered", Toast.LENGTH_SHORT).show()
 
-        }
+                val user = User(fullname, age, country, phone, email, password)
+                CoroutineScope(Dispatchers.IO).launch {
+
+                    UserDB.getInstance(this@registration).getUserDAO().registerUser(user)
+                }
+                Toast.makeText(this, "User registered", Toast.LENGTH_SHORT).show()
+
+            }
+
+
 
         btnSignIn.setOnClickListener {
-            val intent=Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
 
     }
+
+
 
     override fun onClick(v: View?) {
 
