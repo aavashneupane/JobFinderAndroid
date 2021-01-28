@@ -7,11 +7,11 @@
 
                 android:startColor="#0575E6"
                 android:endColor="#69f8e4"
-                android:angle="0" />
+                android:angle="270" />
 
 
             <corners
-                android:radius="4dp" />
+                android:radius="40dp" />
 
             <padding
                 android:right="10dp"
@@ -29,11 +29,11 @@
 
                 android:startColor="#69f8e4"
                 android:endColor="#0575E6"
-                android:angle="0" />
+                android:angle="270" />
 
 
             <corners
-                android:radius="4dp" />
+                android:radius="40dp" />
 
             <padding
                 android:right="10dp"
