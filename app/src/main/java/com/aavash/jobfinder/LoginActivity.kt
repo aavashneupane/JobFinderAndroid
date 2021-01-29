@@ -26,21 +26,25 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        getSharedPref()
+
 
         atvEmailLog=findViewById(R.id.atvEmailLog)
         atvPasswordLog=findViewById(R.id.atvPasswordLog)
+
+        getSharedPref()
 
         btnSignIn=findViewById(R.id.btnSignIn)
         btnSignUp=findViewById(R.id.btnSignUp)
 
         btnSignIn.setOnClickListener{
-            login()
             saveSharedPref()
+            login()
+
 
         }
 
         btnSignUp.setOnClickListener {
+
             val intent=Intent(this,registration::class.java)
                 startActivity(intent)
         }
@@ -63,6 +67,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                         .show()
                 }
             } else {
+
                 startActivity(
                     Intent(
                         this@LoginActivity,
@@ -86,7 +91,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         editor.apply()
         Toast.makeText(
                 this@LoginActivity,
-                "Username nad password saved",
+                "Username and password saved",
                 Toast.LENGTH_SHORT
         ).show()
 
@@ -94,12 +99,22 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
     }
 
     private fun getSharedPref(){
+
+
         val sharedPref= getSharedPreferences("MyPref", MODE_PRIVATE)
-        val username=sharedPref.getString("username","")
-        val password=sharedPref.getString("password","")
-//        Toast.makeText(this,"Username: $username and password : $password ",Toast.LENGTH_SHORT).show()
+        val Username=sharedPref.getString("Username","")
+        val Password=sharedPref.getString("Password","")
+     //   Toast.makeText(this,"Username: $Username and Password : $Password ", Toast.LENGTH_SHORT).show()
+
+        atvEmailLog.setText(Username)
+        atvPasswordLog.setText(Password)
+
+
+
+
 
     }
+
 
 
 
