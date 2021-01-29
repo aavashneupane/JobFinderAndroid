@@ -57,6 +57,11 @@ class registration : AppCompatActivity(), View.OnClickListener {
                 }
                 Toast.makeText(this, "User registered", Toast.LENGTH_SHORT).show()
 
+                startActivity(
+                        Intent(this@registration,LoginActivity::class.java)
+
+                )
+
             }
 
         }
