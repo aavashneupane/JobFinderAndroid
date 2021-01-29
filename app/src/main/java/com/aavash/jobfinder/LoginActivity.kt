@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         btnSignUp=findViewById(R.id.btnSignUp)
 
         btnSignIn.setOnClickListener{
-            saveSharedPref()
+
             login()
 
 
@@ -68,12 +68,16 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                 }
             } else {
 
+                saveSharedPref()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@LoginActivity, "Login and password saved ", Toast.LENGTH_SHORT)
+                            .show()
+                }
                 startActivity(
-                    Intent(
-                        this@LoginActivity,
-                        homeScreen::class.java
-                    )
+                    Intent(this@LoginActivity,homeScreen::class.java)
+
                 )
+
             }
         }
 
@@ -89,11 +93,12 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         editor.putString("Username",username)
         editor.putString("Password",password)
         editor.apply()
-        Toast.makeText(
-                this@LoginActivity,
-                "Username and password saved",
-                Toast.LENGTH_SHORT
-        ).show()
+//        Toast.makeText(
+//                this@LoginActivity,
+//                "Username and password saved",
+//                Toast.LENGTH_SHORT
+//        ).show()
+
 
 
     }
