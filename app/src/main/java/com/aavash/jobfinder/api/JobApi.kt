@@ -2,6 +2,7 @@ package com.aavash.jobfinder.api
 
 import com.aavash.jobfinder.entity.job
 import com.aavash.jobfinder.response.AddJobResponse
+import com.aavash.jobfinder.response.ImageResponse
 import com.aavash.jobfinder.response.JobResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -17,6 +18,15 @@ interface JobApi {
     suspend fun getAllJobs(
         @Header("Authorization") token :String
     ): Response<JobResponse>
+
+
+    @Multipart
+    @PUT("student/{id}/photo")
+    suspend fun uploadImage(
+        @Header("Authorization") token:String,
+        @Path("id")id:String,
+        @Part file: MultipartBody.Part
+    ):Response<ImageResponse>
 
 
 }

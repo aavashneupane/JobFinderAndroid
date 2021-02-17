@@ -90,8 +90,8 @@ class addJob : AppCompatActivity() {
                 MultipartBody.Part.createFormData("file", file.name, reqFile)
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val studentRepository = jobRepository()
-                    val response = studentRepository.uploadImage(studentId, body)
+                    val jobRepository = jobRepository()
+                    val response = jobRepository.uploadImage(studentId, body)
                     if (response.success==true) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@addJob, "Uploaded", Toast.LENGTH_SHORT)
