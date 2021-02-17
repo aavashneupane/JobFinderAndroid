@@ -8,7 +8,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import com.aavash.jobfinder.api.ServiceBuilder
-import com.aavash.jobfinder.db.UserDB
+//import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.userRepository.UserRepository
 import kotlinx.coroutines.CoroutineScope

@@ -19,7 +19,7 @@ interface UserApi {
     @FormUrlEncoded
     @POST("auth/login")
     suspend fun checkUser(
-        @Field("username") username : String,
+        @Field("email") username : String,
         @Field("password") password : String
     ): Response<LoginResponse>
 }

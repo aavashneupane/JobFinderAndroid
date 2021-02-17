@@ -7,8 +7,11 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
-import com.aavash.jobfinder.db.UserDB
+import com.aavash.jobfinder.api.ServiceBuilder
+
 import com.aavash.jobfinder.entity.User
+import com.aavash.jobfinder.userRepository.UserRepository
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,33 +57,43 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
     private fun login() {
         val username = atvEmailLog.text.toString()
         val password = atvPasswordLog.text.toString()
-
-        var user: User? = null
         CoroutineScope(Dispatchers.IO).launch {
-            user = UserDB
-                .getInstance(this@LoginActivity)
-                .getUserDAO()
-                .checkUser(username, password)
-            if (user == null) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@LoginActivity, "Invalid credentials", Toast.LENGTH_SHORT)
-                        .show()
+            try {
+                val repository = UserRepository()
+                val response = repository.checkUser(username, password)
+                if (response.success == true) {
+                    ServiceBuilder.token = "Bearer " + response.token
+                    startActivity(
+                        Intent(
+                            this@LoginActivity,
+                            dashboard::class.java
+                        )
+                    )
+                    finish()
+                } else {
+                    withContext(Dispatchers.Main) {
+                        val snack =
+                            Snackbar.make(
+                                linearLayout,
+                                "Invalidlk credentials",
+                                Snackbar.LENGTH_LONG
+                            )
+                        snack.setAction("OK", View.OnClickListener {
+                            snack.dismiss()
+                        })
+                        snack.show()
+                    }
                 }
-            } else {
 
-                saveSharedPref()
+            } catch (ex: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@LoginActivity, "Login and password saved ", Toast.LENGTH_SHORT)
-                            .show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Login error", Toast.LENGTH_SHORT
+                    ).show()
                 }
-                startActivity(
-                    Intent(this@LoginActivity,homeScreen::class.java)
-
-                )
-
             }
         }
-
     }
 
     private fun saveSharedPref(){
