@@ -7,11 +7,14 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
+import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.entity.User
+import com.aavash.jobfinder.userRepository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class registration : AppCompatActivity(), View.OnClickListener {
 
@@ -50,18 +53,21 @@ class registration : AppCompatActivity(), View.OnClickListener {
                 val password = atvPasswordReg.text.toString()
 
 
-                val user = User(fullname, age, country, phone, email, password)
+                val user = User(fullname=fullname, age=age, country=country,phone=phone, email=email, password= password)
                 CoroutineScope(Dispatchers.IO).launch {
-
-                    UserDB.getInstance(this@registration).getUserDAO().registerUser(user)
-                }
-                Toast.makeText(this, "User registered", Toast.LENGTH_SHORT).show()
-
-                startActivity(
-                        Intent(this@registration,LoginActivity::class.java)
-
-                )
-
+                        val repository = UserRepository()
+                        val response = repository.registerUser(user)
+                        if(response.success == true){
+                            ServiceBuilder.token = response.token
+                            withContext(Dispatchers.Main){
+                                Toast.makeText(this@registration, "Success", Toast.LENGTH_SHORT).show()
+                            }
+                        }else{
+                            withContext(Dispatchers.Main){
+                                Toast.makeText(this@registration, "Error registering user", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
             }
 
         }
