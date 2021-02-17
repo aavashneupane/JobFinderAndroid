@@ -12,10 +12,14 @@ import android.util.Log
 import android.widget.*
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.entity.job
+import com.aavash.jobfinder.userRepository.jobRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -56,8 +60,8 @@ class addJob : AppCompatActivity() {
             val job =
                 job(fullname = etFullName.text.toString(), address = etAddress.text.toString(), age = etAge.text.toString().toInt(),gender = gender)
             CoroutineScope(Dispatchers.IO).launch {
-                val repository = StudentRepository()
-                val response = repository.addStudent(student)
+                val repository = jobRepository()
+                val response = repository.addJob(job)
                 if(response.success == true){
                     if (imageUrl != null){
                         uploadImage(response.data!!._id!!)
@@ -86,7 +90,7 @@ class addJob : AppCompatActivity() {
                 MultipartBody.Part.createFormData("file", file.name, reqFile)
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val studentRepository = StudentRepository()
+                    val studentRepository = jobRepository()
                     val response = studentRepository.uploadImage(studentId, body)
                     if (response.success==true) {
                         withContext(Dispatchers.Main) {

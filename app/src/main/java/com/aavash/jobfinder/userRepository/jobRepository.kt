@@ -1,33 +1,24 @@
 package com.aavash.jobfinder.userRepository
 
+import com.aavash.jobfinder.api.JobApi
 import com.aavash.jobfinder.api.MyApiRequest
+import com.aavash.jobfinder.api.ServiceBuilder
+import com.aavash.jobfinder.entity.job
+import com.aavash.jobfinder.response.AddJobResponse
+import com.aavash.jobfinder.response.JobResponse
+
 
 class jobRepository : MyApiRequest() {
-    private val studentApi = ServiceBuilder.buildService(StudentApi::class.java)
-    suspend fun addStudent(student:Student):AddStudentResponse{
+    private val jobApi = ServiceBuilder.buildService(JobApi::class.java)
+    suspend fun addJob(job: job):AddJobResponse{
         return  apiRequest {
-            studentApi.addStudent(ServiceBuilder.token!!,student)
+            jobApi.addJob(ServiceBuilder.token!!,job)
         }
     }
-    suspend fun getStudents(): StudentResponse {
+    suspend fun getStudents(): JobResponse {
         return apiRequest {
-            studentApi.getAllStudents(ServiceBuilder.token!!)
+            jobApi.getAllJobs(ServiceBuilder.token!!)
         }
     }
-    suspend fun deleteStudents(id: String) : DeleteStudentResponse{
-        return apiRequest {
-            studentApi.deleteStudent(ServiceBuilder.token!!,id)
-        }
-    }
-    suspend fun updateStudents(id: String,student: Student) : UpdateStudentResponse{
-        return apiRequest {
-            studentApi.updateStudent(ServiceBuilder.token!!,id,student)
-        }
-    }
-    suspend fun uploadImage(id: String, body: MultipartBody.Part)
-            : ImageResponse {
-        return apiRequest {
-            studentApi.uploadImage(ServiceBuilder.token!!, id, body)
-        }
-    }
+
 }
