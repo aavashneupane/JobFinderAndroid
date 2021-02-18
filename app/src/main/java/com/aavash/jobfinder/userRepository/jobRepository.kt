@@ -20,12 +20,14 @@ class jobRepository : MyApiRequest() {
             jobApi.getAllJobs(ServiceBuilder.token!!)
         }
     }
-    suspend fun deleteStudents(id: String) : DeleteJobResponse {
+    suspend fun deleteJob(id: String) : DeleteJobResponse{
         return apiRequest {
-            JobApi.deleteJob(ServiceBuilder.token!!,id)
+            jobApi.deleteJob(ServiceBuilder.token!!,id)
         }
     }
-    suspend fun updateStudents(id: String,job: job) : UpdateJobResponse {
+
+
+    suspend fun updateJob(id: String,job: job) : UpdateJobResponse {
         return apiRequest {
             jobApi.updateJob(ServiceBuilder.token!!,id,job)
         }

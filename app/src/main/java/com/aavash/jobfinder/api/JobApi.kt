@@ -27,12 +27,12 @@ interface JobApi {
     suspend fun updateJob(
         @Header("Authorization") token: String,
         @Path("id") id: String,
-        @Body student: job
+        @Body job: job
     ):Response<UpdateJobResponse>
 
 
     @Multipart
-    @PUT("student/{id}/photo")
+    @PUT("job/{id}/photo")
     suspend fun uploadImage(
         @Header("Authorization") token:String,
         @Path("id")id:String,

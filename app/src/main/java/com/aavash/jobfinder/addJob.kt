@@ -81,7 +81,7 @@ class addJob : AppCompatActivity() {
         }
     }
 
-    private fun uploadImage(studentId: String) {
+    private fun uploadImage(jobId: String) {
         if (imageUrl != null) {
             val file = File(imageUrl!!)
             val reqFile =
@@ -91,7 +91,7 @@ class addJob : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val jobRepository = jobRepository()
-                    val response = jobRepository.uploadImage(studentId, body)
+                    val response = jobRepository.uploadImage(jobId, body)
                     if (response.success==true) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@addJob, "Uploaded", Toast.LENGTH_SHORT)
