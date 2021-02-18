@@ -4,9 +4,7 @@ import com.aavash.jobfinder.api.JobApi
 import com.aavash.jobfinder.api.MyApiRequest
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.entity.job
-import com.aavash.jobfinder.response.AddJobResponse
-import com.aavash.jobfinder.response.ImageResponse
-import com.aavash.jobfinder.response.JobResponse
+import com.aavash.jobfinder.response.*
 import okhttp3.MultipartBody
 
 
@@ -20,6 +18,16 @@ class jobRepository : MyApiRequest() {
     suspend fun getStudents(): JobResponse {
         return apiRequest {
             jobApi.getAllJobs(ServiceBuilder.token!!)
+        }
+    }
+    suspend fun deleteStudents(id: String) : DeleteJobResponse {
+        return apiRequest {
+            JobApi.deleteJob(ServiceBuilder.token!!,id)
+        }
+    }
+    suspend fun updateStudents(id: String,job: job) : UpdateJobResponse {
+        return apiRequest {
+            jobApi.updateJob(ServiceBuilder.token!!,id,job)
         }
     }
     suspend fun uploadImage(id: String, body: MultipartBody.Part)
