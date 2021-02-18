@@ -1,10 +1,7 @@
 package com.aavash.jobfinder.api
 
 import com.aavash.jobfinder.entity.job
-import com.aavash.jobfinder.response.AddJobResponse
-import com.aavash.jobfinder.response.DeleteJobResponse
-import com.aavash.jobfinder.response.ImageResponse
-import com.aavash.jobfinder.response.JobResponse
+import com.aavash.jobfinder.response.*
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -21,10 +18,17 @@ interface JobApi {
     ): Response<JobResponse>
 
     @DELETE("job/{id}")
-    suspend fun deleteStudent(
+    suspend fun deleteJob(
         @Header("Authorization") token :String,
         @Path("id") id:String
     ):Response<DeleteJobResponse>
+
+    @PUT("job/{id}")
+    suspend fun updateJob(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body student: job
+    ):Response<UpdateJobResponse>
 
 
     @Multipart
