@@ -71,7 +71,7 @@ class addJob : AppCompatActivity() {
                     }
                 }else{
                     withContext(Dispatchers.Main){
-                        Toast.makeText(this@addJob, "Error adding student", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@addJob, "Error adding job", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -100,7 +100,7 @@ class addJob : AppCompatActivity() {
                     }
                 } catch (ex: Exception) {
                     withContext(Dispatchers.Main) {
-                        Log.d("Mero Error ", ex.localizedMessage)
+                        Log.d("Error ", ex.localizedMessage)
                         Toast.makeText(
                             this@addJob,
                             ex.localizedMessage,
