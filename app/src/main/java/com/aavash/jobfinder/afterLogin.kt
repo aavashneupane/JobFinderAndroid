@@ -17,7 +17,7 @@ class afterLogin : AppCompatActivity() {
         rvDisplayStudents = findViewById(R.id.rvJobs)
         CoroutineScope(Dispatchers.IO).launch {
             val repository = jobRepository()
-            val response = repository.getStudents()
+            val response = repository.getJobs()
             val lst = response.data
             withContext(Dispatchers.Main){
                 val adapter = JobAdapter(lst as ArrayList<job>,this@afterLogin)

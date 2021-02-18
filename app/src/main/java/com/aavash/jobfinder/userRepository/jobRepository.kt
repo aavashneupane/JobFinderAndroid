@@ -15,7 +15,7 @@ class jobRepository : MyApiRequest() {
             jobApi.addJob(ServiceBuilder.token!!,job)
         }
     }
-    suspend fun getStudents(): JobResponse {
+    suspend fun getJobs(): JobResponse {
         return apiRequest {
             jobApi.getAllJobs(ServiceBuilder.token!!)
         }

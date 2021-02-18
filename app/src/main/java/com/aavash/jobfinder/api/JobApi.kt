@@ -2,6 +2,7 @@ package com.aavash.jobfinder.api
 
 import com.aavash.jobfinder.entity.job
 import com.aavash.jobfinder.response.AddJobResponse
+import com.aavash.jobfinder.response.DeleteJobResponse
 import com.aavash.jobfinder.response.ImageResponse
 import com.aavash.jobfinder.response.JobResponse
 import okhttp3.MultipartBody
@@ -18,6 +19,12 @@ interface JobApi {
     suspend fun getAllJobs(
         @Header("Authorization") token :String
     ): Response<JobResponse>
+
+    @DELETE("job/{id}")
+    suspend fun deleteStudent(
+        @Header("Authorization") token :String,
+        @Path("id") id:String
+    ):Response<DeleteJobResponse>
 
 
     @Multipart
