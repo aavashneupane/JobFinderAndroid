@@ -3,14 +3,14 @@ package com.aavash.jobfinder.userRepository
 import com.aavash.jobfinder.api.JobApi
 import com.aavash.jobfinder.api.MyApiRequest
 import com.aavash.jobfinder.api.ServiceBuilder
-import com.aavash.jobfinder.entity.job
+import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.response.*
 import okhttp3.MultipartBody
 
 
 class jobRepository : MyApiRequest() {
     private val jobApi = ServiceBuilder.buildService(JobApi::class.java)
-    suspend fun addJob(job: job):AddJobResponse{
+    suspend fun addJob(job: Job):AddJobResponse{
         return  apiRequest {
             jobApi.addJob(ServiceBuilder.token!!,job)
         }
@@ -27,7 +27,7 @@ class jobRepository : MyApiRequest() {
     }
 
 
-    suspend fun updateJob(id: String,job: job) : UpdateJobResponse {
+    suspend fun updateJob(id: String,job: Job) : UpdateJobResponse {
         return apiRequest {
             jobApi.updateJob(ServiceBuilder.token!!,id,job)
         }

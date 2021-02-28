@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.adapter.JobAdapter
-import com.aavash.jobfinder.entity.job
-import com.aavash.jobfinder.userRepository.jobRepository
+import com.aavash.jobfinder.db.JobDB
 import kotlinx.coroutines.*
 
 class afterLogin : AppCompatActivity() {
@@ -15,13 +14,29 @@ class afterLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_after_login)
         rvDisplayStudents = findViewById(R.id.rvJobs)
+        //for api
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val repository = jobRepository()
+//            val response = repository.getJobs()
+//            val lst = response.data
+//            withContext(Dispatchers.Main){
+//                val adapter = JobAdapter(lst as ArrayList<Job>,this@afterLogin)
+//                rvDisplayStudents.adapter=adapter
+//                rvDisplayStudents.layoutManager = LinearLayoutManager(this@afterLogin)
+//            }
+//        }
+        //for db
+
         CoroutineScope(Dispatchers.IO).launch {
-            val repository = jobRepository()
-            val response = repository.getJobs()
-            val lst = response.data
+//            val lstStudents = StudentDB(this@ViewStudentsActivity).getStudentDAO().getAllStudents()
+            val lstJobs =
+                JobDB.getInstance(this@afterLogin)
+                    .getJobDAO().getAllJobs()
+
             withContext(Dispatchers.Main){
-                val adapter = JobAdapter(lst as ArrayList<job>,this@afterLogin)
-                rvDisplayStudents.adapter=adapter
+
+                rvDisplayStudents.adapter = JobAdapter(this@afterLogin,lstJobs)
                 rvDisplayStudents.layoutManager = LinearLayoutManager(this@afterLogin)
             }
         }

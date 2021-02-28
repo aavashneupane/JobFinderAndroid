@@ -7,14 +7,14 @@ import com.aavash.jobfinder.entity.Job
 @Dao
 interface JobDAO {
     @Insert
-    suspend fun insertStudent(job : Job)
+    suspend fun insertJob(job : Job)
 
     @Query("SELECT * FROM job")
-    suspend fun getAllStudents() : List<Job>
+    suspend fun getAllJobs() : List<Job>
 
     @Update
-    suspend fun updateStudent(job : Job)
+    suspend fun updateJob(job : Job)
 
     @Delete
-    suspend fun DeleteStudent(job : Job)
+    suspend fun DeleteJob(job : Job)
 }

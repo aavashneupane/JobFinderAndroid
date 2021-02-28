@@ -1,6 +1,6 @@
 package com.aavash.jobfinder.api
 
-import com.aavash.jobfinder.entity.job
+import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.response.*
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -10,7 +10,7 @@ interface JobApi {
     @POST("job/")
     suspend fun addJob(
         @Header("Authorization") token: String,
-        @Body job: job
+        @Body job: Job
     ): Response<AddJobResponse>
     @GET("job/")
     suspend fun getAllJobs(
@@ -27,7 +27,7 @@ interface JobApi {
     suspend fun updateJob(
         @Header("Authorization") token: String,
         @Path("id") id: String,
-        @Body job: job
+        @Body job: Job
     ):Response<UpdateJobResponse>
 
 

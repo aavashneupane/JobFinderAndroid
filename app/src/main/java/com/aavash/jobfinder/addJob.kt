@@ -10,14 +10,14 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
-import com.aavash.jobfinder.entity.User
-import com.aavash.jobfinder.entity.job
+import com.aavash.jobfinder.db.JobDB
+import com.aavash.jobfinder.entity.Job
+
 import com.aavash.jobfinder.userRepository.jobRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -57,25 +57,45 @@ class addJob : AppCompatActivity() {
                 rbFemale.isChecked-> gender = rbFemale.text.toString()
                 rbOthers.isChecked-> gender = rbOthers.text.toString()
             }
+//by api
+//            val job =
+//                Job(fullname = etFullName.text.toString(), address = etAddress.text.toString(), age = etAge.text.toString().toInt(),gender = gender)
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val repository = jobRepository()
+//                val response = repository.addJob(job)
+//                if(response.success == true){
+//                    if (imageUrl != null){
+//                        uploadImage(response.data!!._id!!)
+//                    }
+//                    withContext(Dispatchers.Main){
+//                        Toast.makeText(this@addJob, "Success", Toast.LENGTH_SHORT).show()
+//                    }
+//                }else{
+//                    withContext(Dispatchers.Main){
+//                        Toast.makeText(this@addJob, "Error adding job", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
 
-            val job =
-                job(fullname = etFullName.text.toString(), address = etAddress.text.toString(), age = etAge.text.toString().toInt(),gender = gender)
-            CoroutineScope(Dispatchers.IO).launch {
-                val repository = jobRepository()
-                val response = repository.addJob(job)
-                if(response.success == true){
-                    if (imageUrl != null){
-                        uploadImage(response.data!!._id!!)
-                    }
+            //by room db
+
+            val fullName = etFullName.text.toString()
+            val age = etAge.text.toString().toInt()
+            val address = etAddress.text.toString()
+
+
+            val job = Job(fullName, age, gender, address)
+            try {
+                CoroutineScope(Dispatchers.IO).launch {
+                    JobDB.getInstance(this@addJob).getJobDAO().insertJob(job)
                     withContext(Dispatchers.Main){
-                        Toast.makeText(this@addJob, "Success", Toast.LENGTH_SHORT).show()
-                    }
-                }else{
-                    withContext(Dispatchers.Main){
-                        Toast.makeText(this@addJob, "Error adding job", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@addJob, "Job Added", Toast.LENGTH_SHORT).show()
                     }
                 }
+            } catch (ex: java.lang.Exception) {
+                Toast.makeText(this, "Error ${ex.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
+
         }
         imgAddImage.setOnClickListener{
             loadPopUpMenu()
