@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
@@ -85,7 +86,7 @@ class addJob : AppCompatActivity() {
         if (imageUrl != null) {
             val file = File(imageUrl!!)
             val reqFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
             val body =
                 MultipartBody.Part.createFormData("file", file.name, reqFile)
             CoroutineScope(Dispatchers.IO).launch {

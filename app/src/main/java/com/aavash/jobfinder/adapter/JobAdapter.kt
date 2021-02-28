@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
+import com.aavash.jobfinder.UpdateJobActivity
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.entity.job
 import com.aavash.jobfinder.userRepository.jobRepository
@@ -24,9 +25,9 @@ class JobAdapter(
         val lstJobs : ArrayList<job>,
         val context : Context
 
-) : RecyclerView.Adapter<JobAdapter.StudentViewHolder>() {
+) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
-    class StudentViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class JobViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val imgProfile : ImageView
         val tvName : TextView
         val tvAddress : TextView
@@ -46,22 +47,22 @@ class JobAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.addjobrecycle,parent,false)
-        return StudentViewHolder(view)
+        return JobViewHolder(view)
     }
 
     // Data tanne kam
-    override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        val users = lstJobs[position]
-        holder.tvName.text =  users.fullname
-        holder.tvAddress.text = users.address
-        holder.tvAge.text = users.age.toString()
-        holder.tvGender.text = users.gender
+    override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
+        val jobs = lstJobs[position]
+        holder.tvName.text =  jobs.fullname
+        holder.tvAddress.text = jobs.address
+        holder.tvAge.text = jobs.age.toString()
+        holder.tvGender.text = jobs.gender
 
-        val imagePath = ServiceBuilder.loadImagePath() + users.photo
-        if (!users.photo.equals("no-photo.jpg")) {
+        val imagePath = ServiceBuilder.loadImagePath() + jobs.photo
+        if (!jobs.photo.equals("no-photo.jpg")) {
             Glide.with(context)
                     .load(imagePath)
                     .fitCenter()
@@ -71,36 +72,36 @@ class JobAdapter(
         holder.imgBtnDelete.setOnClickListener{
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Delete job")
-            builder.setMessage("Are you sure you want to delete ${users.fullname} ??")
+            builder.setMessage("Are you sure you want to delete ${jobs.fullname} ??")
             builder.setIcon(android.R.drawable.ic_delete)
             builder.setPositiveButton("Yes") { _, _ ->
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    try {
-//                        val jobRepository = jobRepository()
-//                        val response = jobRepository.deleteJobs(users._id!!)
-//                        if (response.success == true) {
-//                            withContext(Dispatchers.Main) {
-//                                Toast.makeText(
-//                                        context,
-//                                        "Job Deleted",
-//                                        Toast.LENGTH_SHORT
-//                                ).show()
-//                            }
-//                            withContext(Dispatchers.Main) {
-//                                lstJobs.remove(job)
-//                                notifyDataSetChanged()
-//                            }
-//                        }
-//                    } catch (ex: Exception) {
-//                        withContext(Dispatchers.Main) {
-//                            Toast.makeText(
-//                                    context,
-//                                    ex.toString(),
-//                                    Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-//                    }
-//                }
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val jobRepository = jobRepository()
+                        val response = jobRepository.deleteJob(jobs._id!!)
+                        if (response.success == true) {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                        context,
+                                        "Job Deleted",
+                                        Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            withContext(Dispatchers.Main) {
+                                lstJobs.remove(jobs)
+                                notifyDataSetChanged()
+                            }
+                        }
+                    } catch (ex: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                    context,
+                                    ex.toString(),
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             }
             builder.setNegativeButton("No") { _, _ ->
             }
@@ -112,11 +113,11 @@ class JobAdapter(
             notifyDataSetChanged()
         }
 
-//        holder.imgBtnUpdate.setOnClickListener{
-//            val intent = Intent(context, UpdateStudentActivity::class.java)
-//            intent.putExtra("student", student)
-//            context.startActivity(intent)
-//        }
+        holder.imgBtnUpdate.setOnClickListener{
+            val intent = Intent(context, UpdateJobActivity::class.java)
+            intent.putExtra("jobs", jobs)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

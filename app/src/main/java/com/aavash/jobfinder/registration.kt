@@ -57,17 +57,21 @@ class registration : AppCompatActivity(), View.OnClickListener {
                 CoroutineScope(Dispatchers.IO).launch {
                         val repository = UserRepository()
                         val response = repository.registerUser(user)
-                        if(response.success == true){
+                        if(response.success==true){
                             ServiceBuilder.token = response.token
                             withContext(Dispatchers.Main){
-                                Toast.makeText(this@registration, "Success", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@registration, "Success", Toast.LENGTH_LONG).show()
+
                             }
                         }else{
                             withContext(Dispatchers.Main){
-                                Toast.makeText(this@registration, "Error registering user", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@registration, "Not Successfull", Toast.LENGTH_LONG).show()
                             }
                         }
                     }
+//                        val intent=Intent(this,LoginActivity::class.java)
+//
+//                        startActivity(intent)
             }
 
         }
