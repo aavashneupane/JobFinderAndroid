@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.UpdateJobActivity
-import com.aavash.jobfinder.afterLogin
 import com.aavash.jobfinder.db.JobDB
 import com.aavash.jobfinder.entity.Job
 import kotlinx.coroutines.CoroutineScope
@@ -74,6 +73,8 @@ class JobAdapter(
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { _, _ ->
                 deleteJob(jobs)
+
+
             }
             builder.setNegativeButton("No") { _, _ ->
                 Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
@@ -148,6 +149,8 @@ class JobAdapter(
         CoroutineScope(Dispatchers.IO).launch {
             JobDB.getInstance(context).getJobDAO()
                     .DeleteJob(job)
+           // notifyDataSetChanged()
+
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
             }
@@ -155,6 +158,7 @@ class JobAdapter(
 
     }
     override fun getItemCount(): Int {
+
         return lstJob.size
     }
 }
