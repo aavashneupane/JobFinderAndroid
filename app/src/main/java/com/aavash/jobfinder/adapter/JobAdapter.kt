@@ -27,20 +27,20 @@ class JobAdapter(
 ) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     class JobViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val imgProfile : ImageView
+     //   val imgProfile : ImageView
         val tvName : TextView
         val tvAddress : TextView
         val tvAge : TextView
-        val tvGender : TextView
+       // val tvGender : TextView
         val imgBtnUpdate : ImageView
         val imgBtnDelete : ImageView
 
         init {
-            imgProfile = view.findViewById(R.id.imgProfile)
+         //   imgProfile = view.findViewById(R.id.imgProfile)
             tvName = view.findViewById(R.id.tvName)
             tvAddress = view.findViewById(R.id.tvAddress)
             tvAge = view.findViewById(R.id.tvAge)
-            tvGender = view.findViewById(R.id.tvGender)
+//            tvGender = view.findViewById(R.id.tvGender)
             imgBtnUpdate = view.findViewById(R.id.imgBtnUpdate)
             imgBtnDelete = view.findViewById(R.id.imgBtnDelete)
         }
@@ -55,21 +55,22 @@ class JobAdapter(
     // Data tanne kam
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val jobs = lstJob[position]
-        holder.tvName.text =  jobs.fullName
-        holder.tvAddress.text = jobs.address
-        holder.tvAge.text = jobs.age.toString()
-        holder.tvGender.text = jobs.gender
+        holder.tvName.text =  jobs.title
+        holder.tvAddress.text = jobs.description
+        holder.tvAge.text = jobs.salary.toString()
+      //  holder.tvGender.text = jobs.gender
 
         holder.imgBtnUpdate.setOnClickListener {
             val intent = Intent(context, UpdateJobActivity::class.java)
             intent.putExtra("job",jobs)
             context.startActivity(intent)
         }
+
         holder.imgBtnDelete.setOnClickListener {
 
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Delete Job")
-            builder.setMessage("Are you sure you want to delete ${jobs.fullName} ??")
+            builder.setMessage("Are you sure you want to delete ${jobs.title} ??")
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { _, _ ->
                 deleteJob(jobs)
@@ -81,6 +82,7 @@ class JobAdapter(
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
+
 
 
 
@@ -142,8 +144,7 @@ class JobAdapter(
 //            context.startActivity(intent)
 //        }
     }
-
-    private fun deleteJob(job: Job) {
+    fun deleteJob(job: Job) {
         CoroutineScope(Dispatchers.IO).launch {
             JobDB.getInstance(context).getJobDAO()
                     .DeleteJob(job)
@@ -153,7 +154,6 @@ class JobAdapter(
         }
 
     }
-
     override fun getItemCount(): Int {
         return lstJob.size
     }

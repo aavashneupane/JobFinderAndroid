@@ -18,7 +18,7 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="2"
             android:id="@+id/btnViewJob"
 android:text="View Job"
@@ -27,7 +27,7 @@ android:text="View Job"
         <Button
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/btnAddJob"
             android:text="Add Job"
             />

@@ -26,43 +26,43 @@ class UpdateJobActivity : AppCompatActivity() {
         btnUpdate = findViewById(R.id.btnUpdate)
 
 
-        btnUpdate.setOnClickListener{
-//           for api
-//            val job = intent.getParcelableExtra<Job>("job")
-//            val jobs =
-//                    Job(fullname = etFullNameUpdate.text.toString(), age = etAgeUpdate.text.toString().toInt())
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val repository = jobRepository()
-//                val response = repository.updateJob(job?._id!!,jobs)
-//                if(response.success == true){
+//        btnUpdate.setOnClickListener{
+////           for api
+////            val job = intent.getParcelableExtra<Job>("job")
+////            val jobs =
+////                    Job(fullname = etFullNameUpdate.text.toString(), age = etAgeUpdate.text.toString().toInt())
+////            CoroutineScope(Dispatchers.IO).launch {
+////                val repository = jobRepository()
+////                val response = repository.updateJob(job?._id!!,jobs)
+////                if(response.success == true){
+////
+////                    withContext(Dispatchers.Main){
+////                        Toast.makeText(this@UpdateJobActivity, "Success", Toast.LENGTH_SHORT).show()
+////                    }
+////                }else{
+////                    withContext(Dispatchers.Main){
+////                        Toast.makeText(this@UpdateJobActivity, "Error updating job", Toast.LENGTH_SHORT).show()
+////                    }
+////                }
+////            }
 //
-//                    withContext(Dispatchers.Main){
-//                        Toast.makeText(this@UpdateJobActivity, "Success", Toast.LENGTH_SHORT).show()
-//                    }
-//                }else{
-//                    withContext(Dispatchers.Main){
-//                        Toast.makeText(this@UpdateJobActivity, "Error updating job", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
+//            //for db
+//            val job =
+//                Job(fullName = etFullNameUpdate.text.toString(),
+//                    age = etAgeUpdate.text.toString().toInt())
+//
+//            //job.stdId = intent!!.stdId
+//
+//            CoroutineScope(Dispatchers.IO).launch {
+//                JobDB.getInstance(this@UpdateJobActivity)
+//                    .getJobDAO()
+//                    .updateJob(job)
+////                withContext(Main){
+//                startActivity(Intent(this@UpdateJobActivity, afterLogin::class.java))
+////                }
 //            }
-
-            //for db
-            val job =
-                Job(fullName = etFullNameUpdate.text.toString(),
-                    age = etAgeUpdate.text.toString().toInt())
-
-            //job.stdId = intent!!.stdId
-
-            CoroutineScope(Dispatchers.IO).launch {
-                JobDB.getInstance(this@UpdateJobActivity)
-                    .getJobDAO()
-                    .updateJob(job)
-//                withContext(Main){
-                startActivity(Intent(this@UpdateJobActivity, afterLogin::class.java))
-//                }
-            }
-
-        }
+//
+//        }
 
 
     }

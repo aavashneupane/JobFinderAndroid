@@ -46,16 +46,16 @@ class addJob : AppCompatActivity() {
         etFullName = findViewById(R.id.etFullName)
         etAddress = findViewById(R.id.etAddress)
         etAge = findViewById(R.id.etAge)
-        rbMale = findViewById(R.id.rbMale)
-        rbFemale = findViewById(R.id.rbFemale)
-        rbOthers = findViewById(R.id.rbOthers)
+//        rbMale = findViewById(R.id.rbMale)
+//        rbFemale = findViewById(R.id.rbFemale)
+//        rbOthers = findViewById(R.id.rbOthers)
         btnAdd = findViewById(R.id.btnAdd)
         imgAddImage = findViewById(R.id.imgAddImage)
         btnAdd.setOnClickListener{
             when{
-                rbMale.isChecked-> gender = rbMale.text.toString()
-                rbFemale.isChecked-> gender = rbFemale.text.toString()
-                rbOthers.isChecked-> gender = rbOthers.text.toString()
+//                rbMale.isChecked-> gender = rbMale.text.toString()
+//                rbFemale.isChecked-> gender = rbFemale.text.toString()
+//                rbOthers.isChecked-> gender = rbOthers.text.toString()
             }
 //by api
 //            val job =
@@ -80,11 +80,11 @@ class addJob : AppCompatActivity() {
             //by room db
 
             val fullName = etFullName.text.toString()
-            val age = etAge.text.toString().toInt()
+            val age = etAge.text.toString()
             val address = etAddress.text.toString()
 
 
-            val job = Job(fullName, age, gender, address)
+            val job = Job(fullName, age, address)
             try {
                 CoroutineScope(Dispatchers.IO).launch {
                     JobDB.getInstance(this@addJob).getJobDAO().insertJob(job)
