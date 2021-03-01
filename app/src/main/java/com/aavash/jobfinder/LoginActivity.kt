@@ -66,57 +66,57 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 //            this@LoginActivity,
 //            "Successfull Login", Toast.LENGTH_SHORT
 //        ).show()
-        val intent=Intent(this,dashboard::class.java)
+//        val intent=Intent(this,dashboard::class.java)
+//
+//        startActivity(intent)
 
-        startActivity(intent)
+
+        CoroutineScope(Dispatchers.IO).launch {
 
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//
-//
-//
-//            try {
-//
-//                val repository = UserRepository()
-//                val response = repository.checkUser(email,password)
-//                if (response.success==true) {
-//                    Log.i("em",email)
-//                    Log.i("pw",password)
-//
-//
-//                    ServiceBuilder.token = "Bearer ${ response.token }"
-//
-//                    startActivity(
-//                        Intent(
-//                            this@LoginActivity,
-//                            dashboard::class.java
-//                        )
-//                    )
-//                    finish()
-//                } else {
-//                    withContext(Dispatchers.Main) {
-//                        val snack =
-//                            Snackbar.make(
-//                                linearLayout,
-//                                "Invalidlk credentials",
-//                                Snackbar.LENGTH_LONG
-//                            )
-//                        snack.setAction("OK", View.OnClickListener {
-//                            snack.dismiss()
-//                        })
-//                        snack.show()
-//                    }
-//                }
-//
-//            } catch (ex: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(
-//                        this@LoginActivity,
-//                        "Login error", Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }
+
+            try {
+
+                val repository = UserRepository()
+                val response = repository.checkUser(email,password)
+                if (response.success==true) {
+                    Log.i("em",email)
+                    Log.i("pw",password)
+
+
+                    ServiceBuilder.token = "Bearer ${ response.token }"
+
+                    startActivity(
+                        Intent(
+                            this@LoginActivity,
+                            dashboard::class.java
+                        )
+                    )
+                    finish()
+                } else {
+                    withContext(Dispatchers.Main) {
+                        val snack =
+                            Snackbar.make(
+                                linearLayout,
+                                "Invalidlk credentials",
+                                Snackbar.LENGTH_LONG
+                            )
+                        snack.setAction("OK", View.OnClickListener {
+                            snack.dismiss()
+                        })
+                        snack.show()
+                    }
+                }
+
+            } catch (ex: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Login error", Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun saveSharedPref(){

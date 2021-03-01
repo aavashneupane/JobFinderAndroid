@@ -1,5 +1,6 @@
 package com.aavash.jobfinder.adapter
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,11 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.UpdateJobActivity
 import com.aavash.jobfinder.afterLogin
+import com.aavash.jobfinder.db.JobDB
 import com.aavash.jobfinder.entity.Job
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class JobAdapter(
@@ -59,6 +65,24 @@ class JobAdapter(
             intent.putExtra("job",jobs)
             context.startActivity(intent)
         }
+        holder.imgBtnDelete.setOnClickListener {
+
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Delete Job")
+            builder.setMessage("Are you sure you want to delete ${jobs.fullName} ??")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("Yes") { _, _ ->
+                deleteJob(jobs)
+            }
+            builder.setNegativeButton("No") { _, _ ->
+                Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
+
+
 
 //        val imagePath = ServiceBuilder.loadImagePath() + jobs.photo
 //        if (!jobs.photo.equals("no-photo.jpg")) {
@@ -117,6 +141,17 @@ class JobAdapter(
 //            intent.putExtra("jobs", jobs)
 //            context.startActivity(intent)
 //        }
+    }
+
+    private fun deleteJob(job: Job) {
+        CoroutineScope(Dispatchers.IO).launch {
+            JobDB.getInstance(context).getJobDAO()
+                    .DeleteJob(job)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
