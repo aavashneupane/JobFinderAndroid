@@ -34,6 +34,8 @@ class JobAdapter(
         val imgBtnUpdate : ImageView
         val imgBtnDelete : ImageView
 
+
+
         init {
          //   imgProfile = view.findViewById(R.id.imgProfile)
             tvName = view.findViewById(R.id.tvName)
@@ -43,12 +45,18 @@ class JobAdapter(
             imgBtnUpdate = view.findViewById(R.id.imgBtnUpdate)
             imgBtnDelete = view.findViewById(R.id.imgBtnDelete)
         }
+
+
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.addjobrecycle,parent,false)
         return JobViewHolder(view)
+
+
     }
 
     // Data tanne kam
@@ -73,6 +81,11 @@ class JobAdapter(
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { _, _ ->
                 deleteJob(jobs)
+                notifyItemChanged(itemCount)
+                notifyItemRemoved(itemCount)
+                notifyDataSetChanged()
+
+
 
 
             }
@@ -82,6 +95,7 @@ class JobAdapter(
             val alertDialog: AlertDialog = builder.create()
             alertDialog.setCancelable(false)
             alertDialog.show()
+            notifyDataSetChanged()
         }
 
 
@@ -149,7 +163,7 @@ class JobAdapter(
         CoroutineScope(Dispatchers.IO).launch {
             JobDB.getInstance(context).getJobDAO()
                     .DeleteJob(job)
-           // notifyDataSetChanged()
+            notifyDataSetChanged()
 
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()

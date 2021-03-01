@@ -1,12 +1,17 @@
 package com.aavash.jobfinder
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.adapter.JobAdapter
 import com.aavash.jobfinder.db.JobDB
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class afterLogin : AppCompatActivity() {
     lateinit var rvDisplayStudents : RecyclerView
@@ -34,10 +39,12 @@ class afterLogin : AppCompatActivity() {
                 JobDB.getInstance(this@afterLogin)
                     .getJobDAO().getAllJobs()
 
+
             withContext(Dispatchers.Main){
 
                 rvDisplayStudents.adapter = JobAdapter(this@afterLogin,lstJobs)
                 rvDisplayStudents.layoutManager = LinearLayoutManager(this@afterLogin)
+
             }
         }
 
