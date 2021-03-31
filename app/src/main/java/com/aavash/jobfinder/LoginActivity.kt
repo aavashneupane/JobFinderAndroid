@@ -3,6 +3,7 @@ package com.aavash.jobfinder
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
     private val description="Notification"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        notificationManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -72,19 +74,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         val email = atvEmailLog.text.toString()
         val password = atvPasswordLog.text.toString()
 
-//        Toast.makeText(
-//            this@LoginActivity,
-//            "Successfull Login", Toast.LENGTH_SHORT
-//        ).show()
-//        val intent=Intent(this,dashboard::class.java)
-//
-//        startActivity(intent)
-
-
         CoroutineScope(Dispatchers.IO).launch {
-
-
-
             try {
 
                 val repository = UserRepository()
@@ -94,7 +84,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                     Log.i("pw",password)
                     createNotification(email)
 
-                    ServiceBuilder.token = "Bearer ${ response.token }"
+                    ServiceBuilder.token = "Bearer " + response.token
 
                     startActivity(
                         Intent(
@@ -124,6 +114,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                         this@LoginActivity,
                         "Login error", Toast.LENGTH_SHORT
                     ).show()
+
                 }
             }
         }

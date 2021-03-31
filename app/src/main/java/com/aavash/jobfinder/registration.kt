@@ -18,7 +18,8 @@ import kotlinx.coroutines.withContext
 
 class registration : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var atvUsernameReg: AutoCompleteTextView
+    private lateinit var atvFirstnameReg: AutoCompleteTextView
+    private lateinit var atvLastnameReg: AutoCompleteTextView
     private lateinit var ageReg: AutoCompleteTextView
     private lateinit var countryReg: AutoCompleteTextView
     private lateinit var phoneReg: AutoCompleteTextView
@@ -35,7 +36,8 @@ class registration : AppCompatActivity(), View.OnClickListener {
         btnSignIn = findViewById(R.id.btnSignIn)
         btnSignUp = findViewById(R.id.btnSignUp)
 
-        atvUsernameReg = findViewById(R.id.atvUsernameReg)
+        atvFirstnameReg = findViewById(R.id.atvFirstnameReg)
+        atvLastnameReg = findViewById(R.id.atvLastnameReg)
         ageReg = findViewById(R.id.ageReg)
         countryReg = findViewById(R.id.countryReg)
         phoneReg = findViewById(R.id.phoneReg)
@@ -45,15 +47,16 @@ class registration : AppCompatActivity(), View.OnClickListener {
         btnSignUp.setOnClickListener {
             if (isValid()){
 
-                val fullname = atvUsernameReg.text.toString()
+                val firstname = atvFirstnameReg.text.toString()
+                val lastname = atvLastnameReg.text.toString()
                 val age = ageReg.text.toString()
-                val country = countryReg.text.toString()
+                val address = countryReg.text.toString()
                 val phone = phoneReg.text.toString()
                 val email = atvEmailReg.text.toString()
                 val password = atvPasswordReg.text.toString()
 
 
-                val user = User(fullname=fullname, age=age, country=country,phone=phone, email=email, password= password)
+                val user = User(firstname=firstname,lastname=lastname, age=age, address= address,phone=phone, email=email, password= password)
                 CoroutineScope(Dispatchers.IO).launch {
                         val repository = UserRepository()
                         val response = repository.registerUser(user)
@@ -86,8 +89,12 @@ class registration : AppCompatActivity(), View.OnClickListener {
 
     private fun isValid(): Boolean {
         when {
-            atvUsernameReg.text.isEmpty() -> {
-                atvUsernameReg.error = "Field must not be empty"
+            atvFirstnameReg.text.isEmpty() -> {
+                atvFirstnameReg.error = "Field must not be empty"
+                return false
+            }
+            atvLastnameReg.text.isEmpty() -> {
+                atvLastnameReg.error = "Field must not be empty"
                 return false
             }
             ageReg.text.isEmpty() -> {
