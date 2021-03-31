@@ -28,13 +28,12 @@
             android:name=".UpdateJobActivity"
             android:label="@string/title_activity_update_job"></activity>
         <activity android:name=".addJob" />
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
+
         <activity
             android:name=".dashboard"
-            android:label="@string/title_activity_dashboard"></activity>
+            android:label="@string/title_activity_dashboard">
+
+        </activity>
         <activity
             android:name=".afterLogin"
             android:label="@string/title_activity_after_login"></activity>
@@ -42,13 +41,15 @@
         <activity android:name=".homeScreen" />
         <activity android:name=".registration" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>
