@@ -22,7 +22,7 @@ interface UserApi {
     ):Response<LoginResponse>
 
     //get users detail
-    @GET("user/profile2")
+    @GET("profile2")
     suspend fun getLoginUser(
             @Header("Authorization") token: String
     ): Response<UserResponse>

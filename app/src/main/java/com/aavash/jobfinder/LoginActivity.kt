@@ -97,6 +97,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                         )
                     )
                     finish()
+                    saveSharedPref()
                 } else {
                     withContext(Dispatchers.Main) {
                         val snack =
@@ -126,12 +127,12 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
     private fun saveSharedPref(){
 
-        val username=atvEmailLog.text.toString()
+        val email=atvEmailLog.text.toString()
         val password = atvPasswordLog.text.toString()
         val sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE)
 
         val editor =sharedPref.edit()
-        editor.putString("Username",username)
+        editor.putString("email",email)
         editor.putString("Password",password)
         editor.apply()
 //        Toast.makeText(
@@ -148,12 +149,12 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
 
         val sharedPref= getSharedPreferences("MyPref", MODE_PRIVATE)
-        val Username=sharedPref.getString("Username","")
-        val Password=sharedPref.getString("Password","")
+        val email=sharedPref.getString("email","")
+        val password=sharedPref.getString("Password","")
      //   Toast.makeText(this,"Username: $Username and Password : $Password ", Toast.LENGTH_SHORT).show()
 
-        atvEmailLog.setText(Username)
-        atvPasswordLog.setText(Password)
+        atvEmailLog.setText(email)
+        atvPasswordLog.setText(password)
 
 
 
@@ -173,7 +174,7 @@ fun createNotification(value:String){
 
         builder= Notification.Builder(this@LoginActivity,channelId)
             .setContentTitle("Login Detail")
-            .setContentText("Hello ($value). You have successcully logged in to your account. Welcome!!")
+            .setContentText("Hello $value. You have successcully logged in to your account. Welcome!!")
             .setSmallIcon(R.drawable.icon_person)
             .setOngoing(true)
         // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))

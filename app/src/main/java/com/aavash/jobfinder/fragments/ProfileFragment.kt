@@ -8,7 +8,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.aavash.jobfinder.R
+import com.aavash.jobfinder.db.UserDB
+import com.aavash.jobfinder.userRepository.UserRepository
 
 
 class ProfileFragment : Fragment() {
@@ -30,11 +34,27 @@ class ProfileFragment : Fragment() {
     ): View? {
 
 
-        val v: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        val root: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        tvFirstName = root.findViewById(R.id.tvFirstName)
+        tvEmail = root.findViewById(R.id.tvemailProfile)
 
+        val userdao = context?.let {
+            UserDB.getInstance(it)
+                    .getUserDAO()
+        }
+        val repo = UserRepository(userdao!!)
 
+        profileViewModel =
+                ViewModelProvider(this, ProfileViewModelFactory(repo)).get(ProfileViewModel::class.java)
 
-        return v
+        profileViewModel.getLogggedInUser()
+
+        profileViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+           // tvFirstName.text = user.firstname
+            tvEmail.text = user.email
+        })
+
+        return root
 
 
 

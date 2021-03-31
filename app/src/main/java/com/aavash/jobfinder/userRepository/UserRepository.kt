@@ -16,7 +16,7 @@ class UserRepository(val userDAO: UserDAO) :
             userAPI.registerUser(user)
         }
     }
-    private val userAPIs = ServiceBuilder.buildService(UserApi::class.java)
+
     suspend fun checkUser(email: String, password: String): LoginResponse {
         return apiRequest {
             userAPI.checkUser(email, password)
@@ -28,7 +28,7 @@ class UserRepository(val userDAO: UserDAO) :
         return userDAO.getUser()
     }
 
-    suspend fun persistUser(): String? {
+    suspend fun persistUser(): String {
         try {
             val response = apiRequest {
                 userAPI.getLoginUser(ServiceBuilder.token!!)

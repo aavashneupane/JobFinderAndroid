@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import com.aavash.jobfinder.api.ServiceBuilder
+import com.aavash.jobfinder.db.UserDB
+import com.aavash.jobfinder.userRepository.UserRepository
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-
+import kotlinx.coroutines.*
 
 
 class SplashActivity : AppCompatActivity() {
@@ -26,14 +25,15 @@ class SplashActivity : AppCompatActivity() {
 
 
 
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(2000)
+        CoroutineScope(Dispatchers.IO).launch {
+           login()
 
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-//            putExtra(atvEmailLog,toString());
-//            putExtra(atvPasswordLog,toString());
-            finish()
+//            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+////            putExtra(atvEmailLog,toString());
+////            putExtra(atvPasswordLog,toString());
+//            finish()
         }
+
 
 
 
@@ -41,6 +41,35 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
+    private suspend fun login() {
+        val sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE)
+        val email = sharedPref.getString("email", "")
+        val password = sharedPref.getString("password", "")
+        withContext(Dispatchers.IO) {
+            try {
+                val userdao = UserDB.getInstance(this@SplashActivity)
+                        .getUserDAO()
 
-
+                val repository = UserRepository(userdao)
+                val response = repository.checkUser(email!!, password!!)
+                if (response.success == true) {
+                    ServiceBuilder.token = "Bearer ${response.token}"
+                    startActivity(
+                            Intent(
+                                    this@SplashActivity,
+                                    MainActivity::class.java
+                            )
+                    )
+                } else {
+                    withContext(Dispatchers.Main) {
+                        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                    }
+                }
+            } catch (ex: Exception) {
+                withContext(Dispatchers.Main) {
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                }
+            }
+        }
+    }
 }
