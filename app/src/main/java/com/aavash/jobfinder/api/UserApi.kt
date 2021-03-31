@@ -2,11 +2,9 @@ package com.aavash.jobfinder.api
 
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.response.LoginResponse
+import com.aavash.jobfinder.response.UserResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserApi {
     //register user
@@ -22,4 +20,10 @@ interface UserApi {
             @Field ("email") email : String,
             @Field ("password") password : String
     ):Response<LoginResponse>
+
+    //get users detail
+    @GET("user/profile2")
+    suspend fun getLoginUser(
+            @Header("Authorization") token: String
+    ): Response<UserResponse>
 }

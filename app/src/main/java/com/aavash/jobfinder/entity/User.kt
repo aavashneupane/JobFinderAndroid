@@ -1,8 +1,12 @@
 package com.aavash.jobfinder.entity
 
-data class User(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    val _id: String? = null,
+@Entity
+data class User(
+        @PrimaryKey
+    val _id: String,
     val firstname: String? = null,
     val lastname: String? = null,
     val age: String? = null,

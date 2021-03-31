@@ -16,6 +16,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.api.ServiceBuilder.token
+import com.aavash.jobfinder.db.UserDB
 
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.userRepository.UserRepository
@@ -73,11 +74,14 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
     private fun login() {
         val email = atvEmailLog.text.toString()
         val password = atvPasswordLog.text.toString()
-
+        var user:User?=null
         CoroutineScope(Dispatchers.IO).launch {
             try {
-
-                val repository = UserRepository()
+                user= UserDB.getInstance(this@LoginActivity)
+                        .getUserDAO().checkUser(email,password)
+                val userdao =UserDB.getInstance(this@LoginActivity)
+                        .getUserDAO()
+                val repository = UserRepository(userdao)
                 val response = repository.checkUser(email,password)
                 if (response.success==true) {
                     Log.i("em",email)
@@ -89,7 +93,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                     startActivity(
                         Intent(
                             this@LoginActivity,
-                            dashboard::class.java
+                            MainActivity::class.java
                         )
                     )
                     finish()

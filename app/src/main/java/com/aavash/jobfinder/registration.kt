@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import com.aavash.jobfinder.api.ServiceBuilder
+import com.aavash.jobfinder.db.UserDB
 //import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.userRepository.UserRepository
@@ -29,9 +30,16 @@ class registration : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnSignUp: Button
     private lateinit var btnSignIn: Button
 
+    private lateinit var repository : UserRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+
+        val userdao = UserDB.getInstance(this)
+                .getUserDAO()
+
+        repository = UserRepository(userdao)
 
         btnSignIn = findViewById(R.id.btnSignIn)
         btnSignUp = findViewById(R.id.btnSignUp)
@@ -56,15 +64,20 @@ class registration : AppCompatActivity(), View.OnClickListener {
                 val password = atvPasswordReg.text.toString()
 
 
-                val user = User(firstname=firstname,lastname=lastname, age=age, address= address,phone=phone, email=email, password= password)
+                val user = User(_id ="",firstname=firstname,lastname=lastname, age=age, address= address,phone=phone, email=email, password= password)
                 CoroutineScope(Dispatchers.IO).launch {
-                        val repository = UserRepository()
+                       // val repository = UserRepository()
                         val response = repository.registerUser(user)
                         if(response.success==true){
                             ServiceBuilder.token = response.token
                             withContext(Dispatchers.Main){
                                 Toast.makeText(this@registration, "Success", Toast.LENGTH_LONG).show()
-
+                                startActivity(
+                                        Intent(
+                                                this@registration,
+                                                LoginActivity::class.java
+                                        )
+                                )
                             }
                         }else{
                             withContext(Dispatchers.Main){

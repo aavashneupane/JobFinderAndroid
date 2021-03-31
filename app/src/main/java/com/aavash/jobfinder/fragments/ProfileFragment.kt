@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.aavash.jobfinder.R
 
 
 class ProfileFragment : Fragment() {
+    private lateinit var tvFirstName:TextView
+    private lateinit var tvEmail: TextView
+
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

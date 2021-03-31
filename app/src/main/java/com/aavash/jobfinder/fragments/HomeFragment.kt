@@ -13,7 +13,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
-
+    lateinit var rvDisplayStudents : RecyclerView
     private var param1 : String? =null
     private var param2 : String? = null
 
@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val view= inflater.inflate(R.layout.fragment_home, container, false)
         return view
+
     }
 
     companion object{
