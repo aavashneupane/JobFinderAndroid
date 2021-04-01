@@ -1,2 +1,3 @@
+include ':jobfinderwear'
 include ':app'
 rootProject.name = "JobFinder"
