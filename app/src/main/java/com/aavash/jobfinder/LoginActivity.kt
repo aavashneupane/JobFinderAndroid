@@ -133,7 +133,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
         val editor =sharedPref.edit()
         editor.putString("email",email)
-        editor.putString("Password",password)
+        editor.putString("password",password)
         editor.apply()
 //        Toast.makeText(
 //                this@LoginActivity,

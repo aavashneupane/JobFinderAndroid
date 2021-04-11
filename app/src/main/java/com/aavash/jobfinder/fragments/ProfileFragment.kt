@@ -1,15 +1,20 @@
 package com.aavash.jobfinder.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.aavash.jobfinder.LoginActivity
+import com.aavash.jobfinder.MainActivity
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.userRepository.UserRepository
@@ -18,6 +23,7 @@ import com.aavash.jobfinder.userRepository.UserRepository
 class ProfileFragment : Fragment() {
     private lateinit var tvFirstName:TextView
     private lateinit var tvEmail: TextView
+    private lateinit var imgLogout:ImageView
 
     private lateinit var profileViewModel: ProfileViewModel
 
@@ -37,6 +43,7 @@ class ProfileFragment : Fragment() {
         val root: View = inflater.inflate(R.layout.fragment_profile, container, false)
         tvFirstName = root.findViewById(R.id.tvFirstName)
         tvEmail = root.findViewById(R.id.tvemailProfile)
+        imgLogout=root.findViewById(R.id.imgLogout)
 
         val userdao = context?.let {
             UserDB.getInstance(it)
@@ -54,6 +61,18 @@ class ProfileFragment : Fragment() {
             tvEmail.text = user.email
         })
 
+        imgLogout.setOnClickListener {
+            logout()
+            Toast.makeText(activity, "Logged out successfully", Toast.LENGTH_LONG).show()
+            startActivity(
+                    Intent(
+                            activity,
+                            LoginActivity::class.java
+                    )
+            )
+
+        }
+
         return root
 
 
@@ -66,5 +85,8 @@ class ProfileFragment : Fragment() {
 
     }
 
+    fun logout(){
+        context?.deleteSharedPreferences("MyPref");
+    }
 
 }
