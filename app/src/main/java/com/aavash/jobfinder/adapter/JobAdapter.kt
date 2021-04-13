@@ -27,21 +27,28 @@ class JobAdapter(
 
     class JobViewHolder(view: View) : RecyclerView.ViewHolder(view){
      //   val imgProfile : ImageView
-        val tvName : TextView
-        val tvAddress : TextView
-        val tvAge : TextView
-       // val tvGender : TextView
+        val jobtitle : TextView
+        val jobtype : TextView
+        val jobdescription : TextView
+        val requiredexperience : TextView
+        val jobprice : TextView
+        val creator : TextView
+        val createdAt : TextView
+
         val imgBtnUpdate : ImageView
         val imgBtnDelete : ImageView
 
-
-
         init {
          //   imgProfile = view.findViewById(R.id.imgProfile)
-            tvName = view.findViewById(R.id.tvName)
-            tvAddress = view.findViewById(R.id.tvAddress)
-            tvAge = view.findViewById(R.id.tvAge)
-//            tvGender = view.findViewById(R.id.tvGender)
+            jobtitle = view.findViewById(R.id.tvJobTitle)
+            jobtype = view.findViewById(R.id.tvJobType)
+            jobdescription = view.findViewById(R.id.tvJobdescription)
+            requiredexperience = view.findViewById(R.id.tvrequiredexperience)
+            jobprice = view.findViewById(R.id.tvJobprice)
+            creator= view.findViewById(R.id.tvCreator)
+            createdAt = view.findViewById(R.id.tvCreatedAt)
+
+
             imgBtnUpdate = view.findViewById(R.id.imgBtnUpdate)
             imgBtnDelete = view.findViewById(R.id.imgBtnDelete)
         }
@@ -62,10 +69,14 @@ class JobAdapter(
     // Data tanne kam
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val jobs = lstJob[position]
-        holder.tvName.text =  jobs.title
-        holder.tvAddress.text = jobs.description
-        holder.tvAge.text = jobs.salary.toString()
-      //  holder.tvGender.text = jobs.gender
+        holder.jobtitle.text =  jobs.jobtitle
+        holder.jobtype.text = jobs.jobtype
+        holder.jobdescription.text = jobs.jobdescription
+        holder.requiredexperience.text = jobs.requiredexperience
+        holder.jobprice.text = jobs.jobprice
+        holder.creator.text = jobs.creator
+        holder.createdAt.text = jobs.createdAt
+
 
         holder.imgBtnUpdate.setOnClickListener {
             val intent = Intent(context, UpdateJobActivity::class.java)
@@ -77,7 +88,7 @@ class JobAdapter(
 
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Delete Job")
-            builder.setMessage("Are you sure you want to delete ${jobs.title} ??")
+            builder.setMessage("Are you sure you want to delete ${jobs.jobtitle} ??")
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { _, _ ->
                 deleteJob(jobs)

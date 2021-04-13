@@ -12,6 +12,7 @@ interface JobApi {
         @Header("Authorization") token: String,
         @Body job: Job
     ): Response<ApplyJobResponse>
+
     @GET("job/showall")
     suspend fun getAllJobs(
         @Header("Authorization") token :String

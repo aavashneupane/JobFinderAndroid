@@ -20,6 +20,11 @@ class jobRepository : MyApiRequest() {
             jobApi.getAllJobs(ServiceBuilder.token!!)
         }
     }
+    suspend fun getAppliedJobs(): JobResponse {
+        return apiRequest {
+            jobApi.showMyApplied(ServiceBuilder.token!!)
+        }
+    }
     suspend fun deleteJob(id: String) : DeleteJobResponse{
         return apiRequest {
             jobApi.deleteJob(ServiceBuilder.token!!,id)

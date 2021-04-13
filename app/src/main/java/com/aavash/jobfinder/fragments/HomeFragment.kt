@@ -39,20 +39,17 @@ class HomeFragment : Fragment() {
     ): View? {
         val view= inflater.inflate(R.layout.fragment_home, container, false)
 
-//        CoroutineScope(Dispatchers.IO).launch {
-////            val lstStudents = StudentDB(this@ViewStudentsActivity).getStudentDAO().getAllStudents()
-//            val lstJobs =
-//                    JobDB.getInstance(this@HomeFragment)
-//                            .getJobDAO().getAllJobs()
-//
-//
-//            withContext(Dispatchers.Main){
-//
-//                rvDisplayStudents.adapter = JobAdapter(this@HomeFragment,lstJobs)
-//                rvDisplayStudents.layoutManager = LinearLayoutManager(this@afterLogin)
-//
-//            }
-//        }
+        CoroutineScope(Dispatchers.IO).launch {
+            val repository = jobRepository()
+            val response = repository.getJobs()
+            val lst = response.data
+            withContext(Dispatchers.Main){
+                val adapter = JobAdapter(lst as ArrayList<Job>,this@afterLogin)
+                rvDisplayStudents.adapter=adapter
+                rvDisplayStudents.layoutManager = LinearLayoutManager(this@afterLogin)
+            }
+        }
+
 
 
         return view

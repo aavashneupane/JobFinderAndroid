@@ -43,7 +43,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvJobTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -54,6 +54,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvJobType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proximanovaregular"
@@ -84,7 +85,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvdescription"
+            android:id="@+id/tvJobdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -98,10 +99,11 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Required experience"
+                android:text="Required experience   "
                 android:fontFamily="@font/proximanovaregular"
                 android:textSize="17sp"
                 android:textStyle="bold" />
+
 
             <Space
                 android:layout_width="wrap_content"
@@ -112,7 +114,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvexperience"
+            android:id="@+id/tvrequiredexperience"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -153,18 +155,52 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvprice"
+                        android:id="@+id/tvJobprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="1000$"
                         android:textSize="12sp" />
                 </LinearLayout>
+
             </LinearLayout>
 
 
+
+
+
+
             </LinearLayout>
+
+
         <TextView
+            android:id="@+id/tvCreator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="Creator"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/proximanovaregular"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="Created At"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/btnApply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
