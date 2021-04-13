@@ -7,17 +7,21 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface JobApi {
-    @POST("job/")
-    suspend fun addJob(
+    @POST("job/applyJob/{id}")
+    suspend fun applyJob(
         @Header("Authorization") token: String,
         @Body job: Job
-    ): Response<AddJobResponse>
-    @GET("job/")
+    ): Response<ApplyJobResponse>
+    @GET("job/showall")
     suspend fun getAllJobs(
         @Header("Authorization") token :String
     ): Response<JobResponse>
+    @GET("job/showMyApplied")
+    suspend fun showMyApplied(
+            @Header("Authorization") token :String
+    ): Response<JobResponse>
 
-    @DELETE("job/{id}")
+    @DELETE("job/deleteMyApplied/{id}")
     suspend fun deleteJob(
         @Header("Authorization") token :String,
         @Path("id") id:String

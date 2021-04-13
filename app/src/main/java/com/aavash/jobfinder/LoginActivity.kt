@@ -98,6 +98,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                     )
                     finish()
                     saveSharedPref()
+
                 } else {
                     withContext(Dispatchers.Main) {
                         val snack =
@@ -145,6 +146,8 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
     }
 
+
+
     private fun getSharedPref(){
 
 
@@ -176,7 +179,7 @@ fun createNotification(value:String){
             .setContentTitle("Login Detail")
             .setContentText("Hello $value. You have successcully logged in to your account. Welcome!!")
             .setSmallIcon(R.drawable.icon_person)
-            .setOngoing(true)
+            .setOngoing(false)
         // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
         // .setContentIntent(pendingIntent)
 

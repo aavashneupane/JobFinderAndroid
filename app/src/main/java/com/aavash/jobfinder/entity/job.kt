@@ -9,10 +9,14 @@ import java.io.Serializable
 
 @Entity
 data class Job(
-    var title: String? = null,
-    var description: String? = null,
-   // var gender: String? = null,
-    var salary: String? = null
+    var jobtitle: String? = null,
+    var jobtype: String? = null,
+    var jobdescription: String? = null,
+    var requiredexperience: String? = null,
+    var jobprice: String? = null,
+    var creator: String? = null,
+    var createdAt: String? = null
+
 ) : Parcelable{
     @PrimaryKey(autoGenerate = true)
     var stdId: Int = 0
@@ -27,10 +31,14 @@ data class Job(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(title)
-        parcel.writeValue(description)
-    //    parcel.writeString(gender)
-        parcel.writeString(salary)
+        parcel.writeString(jobtitle)
+        parcel.writeString(jobtype)
+        parcel.writeValue(jobdescription)
+        parcel.writeValue(requiredexperience)
+        parcel.writeValue(jobprice)
+        parcel.writeValue(creator)
+        parcel.writeValue(createdAt)
+
         parcel.writeInt(stdId)
     }
 
