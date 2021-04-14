@@ -47,8 +47,6 @@ class SplashActivity : AppCompatActivity() {
         val password = sharedPref.getString("password", "")
         withContext(Dispatchers.IO) {
             try {
-                val userdao = UserDB.getInstance(this@SplashActivity)
-                        .getUserDAO()
 
                 val repository = UserRepository()
                 val response = repository.checkUser(email!!, password!!)

@@ -21,6 +21,7 @@ import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.userRepository.UserRepository
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,10 +36,6 @@ class ProfileFragment : Fragment() {
 
 
 
-
-    var firstname:String=""
-    var lastname:String=""
-    var email:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +52,11 @@ class ProfileFragment : Fragment() {
 
         val root: View = inflater.inflate(R.layout.fragment_profile, container, false)
         tvFirstName = root.findViewById(R.id.tvFirstName)
+        //tvLastName = root.findViewById(R.id.tvLastName)
+
         tvEmail = root.findViewById(R.id.tvemailProfile)
         imgLogout=root.findViewById(R.id.imgLogout)
+        //tvFirstName.setText("Vayo?")
 
 //        val userdao = context?.let {
 //            UserDB.getInstance(it)
@@ -76,29 +76,22 @@ class ProfileFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-//                user= UserDB.getInstance(this@LoginActivity)
-//                        .getUserDAO().checkUser(email,password)
-//                val userdao =UserDB.getInstance(this@LoginActivity)
-//                        .getUserDAO()
+
                 val repository = UserRepository()
-                val response = repository.checkUser()
+                val response = repository.getUser()
                 if (response.success==true) {
-                    Log.i("em",email)
-                    Log.i("pw",password)
-                    createNotification(email)
+                    Toast.makeText(
+                            context,
+                            "error in success", Toast.LENGTH_SHORT
+                    ).show()
+                    tvFirstName.setText(response.user?.firstname)
+//                    tvFirstName.setText("Vayo?")
+                    response.user?.firstname?.let { Log.d("Firstname", it) }
 
-                    ServiceBuilder.token = "Bearer " + response.token
 
-                    //to save user details
 
-                    startActivity(
-                            Intent(
-                                    this@LoginActivity,
-                                    MainActivity::class.java
-                            )
-                    )
-                    finish()
-                    saveSharedPref()
+                    tvEmail.setText(response.user!!.email)
+
 
 
                 } else {
@@ -106,21 +99,26 @@ class ProfileFragment : Fragment() {
                         val snack =
                                 Snackbar.make(
                                         linearLayout,
-                                        "Invalidlk credentials",
+                                        "Unexpected error",
                                         Snackbar.LENGTH_LONG
                                 )
                         snack.setAction("OK", View.OnClickListener {
                             snack.dismiss()
+
                         })
                         snack.show()
+                        Toast.makeText(
+                                context,
+                                "Error after success", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
             } catch (ex: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
-                            this@LoginActivity,
-                            "Login error", Toast.LENGTH_SHORT
+                            context,
+                            "Profile error", Toast.LENGTH_SHORT
                     ).show()
 
                 }

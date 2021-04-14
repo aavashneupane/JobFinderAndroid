@@ -6,19 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
+import com.aavash.jobfinder.entity.Applied
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class JobsFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+    private var appliedList = mutableListOf<Applied>()
+    private lateinit var rvApplied: RecyclerView
 
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,15 +30,34 @@ class JobsFragment : Fragment() {
     ): View? {
 
 
-        val v: View = inflater.inflate(R.layout.fragment_jobs, container, false)
+        val root = inflater.inflate(R.layout.fragment_jobs, container, false)
+        rvApplied=root.findViewById(R.id.rvApplied)
 
 
-
-        return v
+        return root
 
 
 
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+
+            }catch (ex:Exception){
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                            context,
+                            "Not Applied in any jobs!!!", Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -9,18 +9,22 @@ data class User(
 
 
 
-    @PrimaryKey
-    @ColumnInfo(name="_id")val _id: String,
-    @ColumnInfo(name="firstname")val firstname: String? = null,
-    @ColumnInfo(name="lastname")val lastname: String? = null,
-    @ColumnInfo(name="age")val age: String? = null,
-    @ColumnInfo(name="address")val address: String? = null,
-    @ColumnInfo(name="phone")val phone: String? = null,
-    @ColumnInfo(name="email")val email: String? = null,
-    @ColumnInfo(name="password")val password: String? = null,
-    @ColumnInfo(name="projects")val projects: String? = null,
-    @ColumnInfo(name="experience")val experience: String? = null,
-    @ColumnInfo(name="userbio")val userbio: String? = null
+
+    val _id: String?=null,
+    var firstname: String? = null,
+    var lastname: String? = null,
+    var age: String? = null,
+    var address: String? = null,
+    var phone: String? = null,
+    var email: String? = null,
+    var password: String? = null,
+    var projects: String? = null,
+    var experience: String? = null,
+    var userbio: String? = null
 
 
 )
+{
+    @PrimaryKey(autoGenerate = true)
+    var userId:Int=0
+}
