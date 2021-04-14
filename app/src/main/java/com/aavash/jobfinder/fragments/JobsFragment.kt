@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.entity.Applied
+import com.aavash.jobfinder.userRepository.appliedRepository
 import com.aavash.jobfinder.userRepository.jobRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +45,7 @@ class JobsFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val repository=jobRepository()
+                val repository= appliedRepository()
                 val response=repository.getAppliedJobs()
                 if (response.success==true){
                     appliedList=response.data!!
