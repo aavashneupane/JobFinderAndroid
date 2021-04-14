@@ -7,25 +7,17 @@ import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.response.*
 import okhttp3.MultipartBody
 
-
-class jobRepository : MyApiRequest() {
+class appliedRepository : MyApiRequest() {
     private val jobApi = ServiceBuilder.buildService(JobApi::class.java)
-    suspend fun applyJob(job: Job):ApplyJobResponse{
-        return  apiRequest {
-            jobApi.applyJob(ServiceBuilder.token!!,job)
+
+    suspend fun getAppliedJobs(): ShowAppliedResponse {
+        return apiRequest {
+            jobApi.showMyApplied(ServiceBuilder.token!!)
         }
     }
-    suspend fun getJobs(): JobResponse {
+    suspend fun deleteJob(id: String) : DeleteJobResponse {
         return apiRequest {
-            jobApi.getAllJobs(ServiceBuilder.token!!)
-        }
-    }
-
-
-
-    suspend fun updateJob(id: String,job: Job) : UpdateJobResponse {
-        return apiRequest {
-            jobApi.updateJob(ServiceBuilder.token!!,id,job)
+            jobApi.deleteJob(ServiceBuilder.token!!,id)
         }
     }
     suspend fun uploadImage(id: String, body: MultipartBody.Part)

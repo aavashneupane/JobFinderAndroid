@@ -1,8 +1,9 @@
 package com.aavash.jobfinder.response
 
-import com.aavash.jobfinder.entity.Job
+import com.aavash.jobfinder.entity.Applied
+
 
 data class ShowAppliedResponse (
         val success : Boolean? = null,
-        val data : Job? = null
+        val data : MutableList<Applied>? = null
 )

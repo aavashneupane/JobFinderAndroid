@@ -9,14 +9,13 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.entity.Applied
+import com.aavash.jobfinder.userRepository.jobRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class JobsFragment : Fragment() {
 
@@ -45,6 +44,11 @@ class JobsFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                val repository=jobRepository()
+                val response=repository.getAppliedJobs()
+                if (response.success==true){
+                    appliedList=response.data!!
+                }
 
             }catch (ex:Exception){
                 withContext(Dispatchers.Main) {

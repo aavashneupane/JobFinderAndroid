@@ -20,7 +20,7 @@ interface JobApi {
     @GET("job/showMyApplied")
     suspend fun showMyApplied(
             @Header("Authorization") token :String
-    ): Response<JobResponse>
+    ): Response<ShowAppliedResponse>
 
     @DELETE("job/deleteMyApplied/{id}")
     suspend fun deleteJob(
