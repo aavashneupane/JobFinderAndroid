@@ -39,7 +39,7 @@ class registration : AppCompatActivity(), View.OnClickListener {
         val userdao = UserDB.getInstance(this)
                 .getUserDAO()
 
-        repository = UserRepository(userdao)
+        repository = UserRepository()
 
         btnSignIn = findViewById(R.id.btnSignIn)
         btnSignUp = findViewById(R.id.btnSignUp)

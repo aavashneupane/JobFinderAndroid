@@ -8,7 +8,9 @@
     android:background="@drawable/circularbordersolid"
     android:padding="16dp"
     android:gravity="center"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.HomeFragment"
+    >
 
 
     <LinearLayout

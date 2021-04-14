@@ -1,15 +1,9 @@
 package com.aavash.jobfinder
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.aavash.jobfinder.db.JobDB
-import com.aavash.jobfinder.entity.Job
-import com.aavash.jobfinder.userRepository.jobRepository
-import kotlinx.coroutines.*
 
 class UpdateJobActivity : AppCompatActivity() {
 

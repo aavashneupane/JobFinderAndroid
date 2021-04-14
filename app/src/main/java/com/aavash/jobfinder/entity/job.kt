@@ -7,27 +7,31 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity
+
 data class Job(
-    var jobtitle: String? = null,
-    var jobtype: String? = null,
-    var jobdescription: String? = null,
-    var requiredexperience: String? = null,
-    var jobprice: String? = null,
-    var creator: String? = null,
-    var createdAt: String? = null
+    val jobtitle: String?,
+    val jobtype: String?,
+    val jobdescription: String?,
+    val requiredexperience: String?,
+    val jobprice: String?,
+    val creator: String?,
+    val createdAt: String?
 
 ) : Parcelable{
     @PrimaryKey(autoGenerate = true)
-    var stdId: Int = 0
+    private var jobid= 0
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),
       //  parcel.readValue(Int::class.java.classLoader) as? Int,
        parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()
     ) {
-        stdId = parcel.readInt()
+        jobid = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -39,7 +43,7 @@ data class Job(
         parcel.writeValue(creator)
         parcel.writeValue(createdAt)
 
-        parcel.writeInt(stdId)
+        parcel.writeInt(jobid)
     }
 
     override fun describeContents(): Int {

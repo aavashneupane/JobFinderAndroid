@@ -20,10 +20,10 @@ class dashboard : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnAddJob.setOnClickListener {
-            val intent=Intent(this,addJob::class.java)
-            startActivity(intent)
-        }
+//        btnAddJob.setOnClickListener {
+//            val intent=Intent(this,addJob::class.java)
+//            startActivity(intent)
+//        }
 
 
     }

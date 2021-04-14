@@ -5,32 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.adapter.JobAdapter
-import com.aavash.jobfinder.db.JobDB
+import com.aavash.jobfinder.entity.Job
+import com.aavash.jobfinder.userRepository.jobRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
-    lateinit var rvDisplayStudents : RecyclerView
-    private var param1 : String? =null
-    private var param2 : String? = null
+    lateinit var rvJobs : RecyclerView
+    private var lstJob = mutableListOf<Job>()
 
-
-    override fun onCreate(  savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
 
     override fun onCreateView(
@@ -38,37 +30,39 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val view= inflater.inflate(R.layout.fragment_home, container, false)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val repository = jobRepository()
-            val response = repository.getJobs()
-            val lst = response.data
-            withContext(Dispatchers.Main){
-                val adapter = JobAdapter(lst as ArrayList<Job>,this@afterLogin)
-                rvDisplayStudents.adapter=adapter
-                rvDisplayStudents.layoutManager = LinearLayoutManager(this@afterLogin)
-            }
-        }
-
-
+        rvJobs = view.findViewById(R.id.rvJobs)
+      //  rvJobs.adapter?.notifyDataSetChanged()
 
         return view
 
     }
 
-    companion object{
-        fun newInstance(param1: String, param2: String) =
-                HomeFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
+
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val repository = jobRepository()
+                val response = repository.getJobs()
+            if (response.success == true) {
+                lstJob = response.data!!
+                withContext(Main){
+                    rvJobs.apply {
+                        layoutManager = GridLayoutManager(context,2)
+                        this.adapter = JobAdapter(lstJob,context)
                     }
                 }
+            }
+
+        } catch (ex: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                        context,
+                        "No Jobs!!!", Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
+}
 }

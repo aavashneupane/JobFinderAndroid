@@ -6,9 +6,11 @@ import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.api.UserApi
 import com.aavash.jobfinder.dao.UserDAO
 import com.aavash.jobfinder.entity.User
+import com.aavash.jobfinder.response.JobResponse
 import com.aavash.jobfinder.response.LoginResponse
+import com.aavash.jobfinder.response.UserResponse
 
-class UserRepository(val userDAO: UserDAO) :
+class UserRepository:
     MyApiRequest() {
     private val userAPI = ServiceBuilder.buildService(UserApi::class.java)
     suspend fun registerUser(user: User): LoginResponse {
@@ -22,26 +24,11 @@ class UserRepository(val userDAO: UserDAO) :
             userAPI.checkUser(email, password)
         }
     }
-    //    get login user
-    suspend fun getLoginUser():User{
-        val _id = persistUser()
-        return userDAO.getUser()
-    }
-
-    suspend fun persistUser(): String {
-        try {
-            val response = apiRequest {
-                userAPI.getLoginUser(ServiceBuilder.token!!)
-            }
-            if (response.success == true) {
-                userDAO.registerUser(response.user!!)
-                return response.user._id
-            }
-
-        } catch (ex: Exception) {
-            Log.i("UserRepo", ex.toString())
+    //to get user
+    suspend fun getUser(): UserResponse {
+        return apiRequest {
+            userAPI.getLoginUser(ServiceBuilder.token!!)
         }
-
-        return ""
     }
+
 }

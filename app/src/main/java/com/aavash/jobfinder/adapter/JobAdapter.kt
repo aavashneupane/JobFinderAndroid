@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.UpdateJobActivity
-import com.aavash.jobfinder.db.JobDB
 import com.aavash.jobfinder.entity.Job
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,8 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class JobAdapter(
-    private val context: Context,
-    private val lstJob: List<Job>
+
+    val lstJob: MutableList<Job>,
+    val context: Context
 
 ) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
@@ -34,7 +34,6 @@ class JobAdapter(
         val jobprice : TextView
         val creator : TextView
         val createdAt : TextView
-
         val imgBtnUpdate : ImageView
         val imgBtnDelete : ImageView
 
@@ -58,17 +57,12 @@ class JobAdapter(
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.addjobrecycle,parent,false)
-        return JobViewHolder(view)
 
-
-    }
 
     // Data tanne kam
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val jobs = lstJob[position]
+        println("Adapter: "+jobs)
         holder.jobtitle.text =  jobs.jobtitle
         holder.jobtype.text = jobs.jobtype
         holder.jobdescription.text = jobs.jobdescription
@@ -77,37 +71,37 @@ class JobAdapter(
         holder.creator.text = jobs.creator
         holder.createdAt.text = jobs.createdAt
 
+//
+//        holder.imgBtnUpdate.setOnClickListener {
+//            val intent = Intent(context, UpdateJobActivity::class.java)
+//            intent.putExtra("job",jobs)
+//            context.startActivity(intent)
+//        }
 
-        holder.imgBtnUpdate.setOnClickListener {
-            val intent = Intent(context, UpdateJobActivity::class.java)
-            intent.putExtra("job",jobs)
-            context.startActivity(intent)
-        }
-
-        holder.imgBtnDelete.setOnClickListener {
-
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle("Delete Job")
-            builder.setMessage("Are you sure you want to delete ${jobs.jobtitle} ??")
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setPositiveButton("Yes") { _, _ ->
-                deleteJob(jobs)
-                notifyItemChanged(itemCount)
-                notifyItemRemoved(itemCount)
-                notifyDataSetChanged()
-
-
-
-
-            }
-            builder.setNegativeButton("No") { _, _ ->
-                Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
-            }
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-            notifyDataSetChanged()
-        }
+//        holder.imgBtnDelete.setOnClickListener {
+//
+//            val builder = AlertDialog.Builder(context)
+//            builder.setTitle("Delete Job")
+//            builder.setMessage("Are you sure you want to delete ${jobs.jobtitle} ??")
+//            builder.setIcon(android.R.drawable.ic_dialog_alert)
+//            builder.setPositiveButton("Yes") { _, _ ->
+//
+//                notifyItemChanged(itemCount)
+//                notifyItemRemoved(itemCount)
+//                notifyDataSetChanged()
+//
+//
+//
+//
+//            }
+//            builder.setNegativeButton("No") { _, _ ->
+//                Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
+//            }
+//            val alertDialog: AlertDialog = builder.create()
+//            alertDialog.setCancelable(false)
+//            alertDialog.show()
+//            notifyDataSetChanged()
+//        }
 
 
 
@@ -170,20 +164,28 @@ class JobAdapter(
 //            context.startActivity(intent)
 //        }
     }
-    fun deleteJob(job: Job) {
-        CoroutineScope(Dispatchers.IO).launch {
-            JobDB.getInstance(context).getJobDAO()
-                    .DeleteJob(job)
-            notifyDataSetChanged()
-
-            withContext(Dispatchers.Main) {
-                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    }
+//    fun deleteJob(job: Job) {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            JobDB.getInstance(context).getJobDAO()
+//                    .DeleteJob(job)
+//            notifyDataSetChanged()
+//
+//            withContext(Dispatchers.Main) {
+//                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//
+//    }
     override fun getItemCount(): Int {
 
         return lstJob.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.addjobrecycle,parent,false)
+        return JobViewHolder(view)
+
+
     }
 }

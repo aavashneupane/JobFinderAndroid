@@ -77,11 +77,11 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         var user:User?=null
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                user= UserDB.getInstance(this@LoginActivity)
-                        .getUserDAO().checkUser(email,password)
-                val userdao =UserDB.getInstance(this@LoginActivity)
-                        .getUserDAO()
-                val repository = UserRepository(userdao)
+//                user= UserDB.getInstance(this@LoginActivity)
+//                        .getUserDAO().checkUser(email,password)
+//                val userdao =UserDB.getInstance(this@LoginActivity)
+//                        .getUserDAO()
+                val repository = UserRepository()
                 val response = repository.checkUser(email,password)
                 if (response.success==true) {
                     Log.i("em",email)
@@ -89,6 +89,8 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                     createNotification(email)
 
                     ServiceBuilder.token = "Bearer " + response.token
+
+                    //to save user details
 
                     startActivity(
                         Intent(
@@ -98,6 +100,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                     )
                     finish()
                     saveSharedPref()
+
 
                 } else {
                     withContext(Dispatchers.Main) {
@@ -177,7 +180,7 @@ fun createNotification(value:String){
 
         builder= Notification.Builder(this@LoginActivity,channelId)
             .setContentTitle("Login Detail")
-            .setContentText("Hello $value. You have successcully logged in to your account. Welcome!!")
+            .setContentText("Hello $value. You have successfully logged in to your account. Welcome!!")
             .setSmallIcon(R.drawable.icon_person)
             .setOngoing(false)
         // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))

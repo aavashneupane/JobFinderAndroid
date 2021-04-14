@@ -50,7 +50,7 @@ class SplashActivity : AppCompatActivity() {
                 val userdao = UserDB.getInstance(this@SplashActivity)
                         .getUserDAO()
 
-                val repository = UserRepository(userdao)
+                val repository = UserRepository()
                 val response = repository.checkUser(email!!, password!!)
                 if (response.success == true) {
                     ServiceBuilder.token = "Bearer ${response.token}"
