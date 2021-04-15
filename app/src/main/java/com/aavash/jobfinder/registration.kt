@@ -8,8 +8,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import com.aavash.jobfinder.api.ServiceBuilder
-import com.aavash.jobfinder.db.UserDB
 //import com.aavash.jobfinder.db.UserDB
+
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.userRepository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -36,8 +36,8 @@ class registration : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        val userdao = UserDB.getInstance(this)
-                .getUserDAO()
+//        val userdao = UserDB.getInstance(this)
+//                .getUserDAO()
 
         repository = UserRepository()
 
@@ -62,11 +62,11 @@ class registration : AppCompatActivity(), View.OnClickListener {
                 val phone = phoneReg.text.toString()
                 val email = atvEmailReg.text.toString()
                 val password = atvPasswordReg.text.toString()
+                val role="Customer"
 
-
-                val user = User(_id ="",firstname=firstname,lastname=lastname, age=age, address= address,phone=phone, email=email, password= password)
+                val user = User(firstname=firstname,lastname=lastname, age=age, address= address,phone=phone, email=email, password= password,role=role)
                 CoroutineScope(Dispatchers.IO).launch {
-                       // val repository = UserRepository()
+                        val repository = UserRepository()
                         val response = repository.registerUser(user)
                         if(response.success==true){
                             ServiceBuilder.token = response.token

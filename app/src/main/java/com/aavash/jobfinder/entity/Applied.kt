@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Applied(
         var confirmStatus: String? = null,
-        var userid: Int? = null,
-        var jobid: String? = null,
+        var userid: User ?= null,
+        var jobid: Job? = null,
         var createdAt: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -17,17 +17,15 @@ data class Applied(
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.readValue(Int::class.java.classLoader) as? Int,
-            parcel.readString(),
-            parcel.readString()
-    ) {
+            TODO("userid"),
+            parcel.readParcelable(Job::class.java.classLoader),
+            parcel.readString()) {
         stdId = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(confirmStatus)
-        parcel.writeValue(userid)
-        parcel.writeString(jobid)
+        parcel.writeParcelable(jobid, flags)
         parcel.writeString(createdAt)
         parcel.writeInt(stdId)
     }
@@ -45,6 +43,4 @@ data class Applied(
             return arrayOfNulls(size)
         }
     }
-
-
 }

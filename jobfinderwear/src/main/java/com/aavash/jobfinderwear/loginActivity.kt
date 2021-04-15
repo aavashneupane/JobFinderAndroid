@@ -32,10 +32,10 @@ class loginActivity : AppCompatActivity() {
         btnSignIn=findViewById(R.id.btnSignIn)
 
         btnSignIn.setOnClickListener{
+            if (isValid()) {
+                login()
 
-            login()
-
-
+            }
         }
 
 
@@ -88,5 +88,22 @@ class loginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun isValid(): Boolean {
+        when {
+
+            atvPasswordLog.text.isEmpty() ->{
+                atvPasswordLog.error = "Field must not be empty"
+                return false
+            }
+
+            atvEmailLog.text.isEmpty() -> {
+                atvEmailLog.error = "Field must not be empty"
+                return false
+            }
+        }
+        return true
+
+
     }
 }

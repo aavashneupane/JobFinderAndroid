@@ -4,7 +4,7 @@ import android.util.Log
 import com.aavash.jobfinder.api.MyApiRequest
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.api.UserApi
-import com.aavash.jobfinder.dao.UserDAO
+//import com.aavash.jobfinder.dao.UserDAO
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.response.JobResponse
 import com.aavash.jobfinder.response.LoginResponse

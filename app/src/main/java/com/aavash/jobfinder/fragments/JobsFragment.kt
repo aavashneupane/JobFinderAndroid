@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
+import com.aavash.jobfinder.adapter.AppliedAdapter
 import com.aavash.jobfinder.entity.Applied
 import com.aavash.jobfinder.userRepository.appliedRepository
 import com.aavash.jobfinder.userRepository.jobRepository
@@ -33,25 +35,19 @@ class JobsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_jobs, container, false)
         rvApplied=root.findViewById(R.id.rvApplied)
 
-
-        return root
-
-
-
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val repository= appliedRepository()
                 val response=repository.getAppliedJobs()
                 if (response.success==true){
-                    appliedList=response.data!!
+                    withContext(Dispatchers.Main) {
+                        appliedList = response.data!!
+                        rvApplied.adapter = context?.let { AppliedAdapter(it, appliedList) }
+                        rvApplied.layoutManager = LinearLayoutManager(context)
+                    }
                 }
-
-            }catch (ex:Exception){
+            }
+            catch (ex:Exception){
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                             context,
@@ -61,14 +57,40 @@ class JobsFragment : Fragment() {
             }
         }
 
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        return root
 
     }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                val repository= appliedRepository()
+//                val response=repository.getAppliedJobs()
+//                if (response.success==true){
+//                    appliedList=response.data!!
+//
+//                }
+//
+//            }catch (ex:Exception){
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(
+//                            context,
+//                            "Not Applied in any jobs!!!", Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
+//
+//    }
+//
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//
+//    }
 
 
 }

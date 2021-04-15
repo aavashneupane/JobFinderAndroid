@@ -26,6 +26,7 @@ class AppliedAdapter(
 
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.myapplied, parent, false)
@@ -34,13 +35,10 @@ class AppliedAdapter(
 
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
         val applied = lstApplied[position]
-        holder.tvAppliedTitle.text = applied.jobid
-        holder.tvAppliedType.text = applied.createdAt
+        holder.tvAppliedTitle.text = applied.jobid?.jobtitle
+        holder.tvAppliedType.text = applied.jobid?.jobtype
         holder.tvAppliedstatus.text = applied.confirmStatus
-        holder.tvAppliedCreator.text = applied.jobid
-
-
-
+        holder.tvAppliedCreator.text = applied.jobid?.creator
 
         holder.btnDeleteApplied.setOnClickListener {
 

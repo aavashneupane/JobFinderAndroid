@@ -16,7 +16,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.api.ServiceBuilder.token
-import com.aavash.jobfinder.db.UserDB
+//import com.aavash.jobfinder.db.UserDB
 
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.userRepository.UserRepository
@@ -58,13 +58,13 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
         btnSignIn.setOnClickListener{
 
-            login()
+            if (isValid()) {
+                login()
 
-
+            }
         }
 
         btnSignUp.setOnClickListener {
-
             val intent=Intent(this,registration::class.java)
                 startActivity(intent)
         }
@@ -205,19 +205,21 @@ fun createNotification(value:String){
     }
 
 
-//    override fun onClick(v: View?) {
-//
-//        when(v?.id){
-//            R.id.btnSignIn->{
-//                val intent=Intent(this,homeScreen::class.java)
-//                startActivity(intent)
-//            }
-//            R.id.btnSignUp->{
-//                val intent=Intent(this,registration::class.java)
-//                startActivity(intent)
-//            }
-//
-//        }
-//
-//    }
+    private fun isValid(): Boolean {
+        when {
+
+            atvPasswordLog.text.isEmpty() ->{
+                atvPasswordLog.error = "Field must not be empty"
+                return false
+            }
+
+            atvEmailLog.text.isEmpty() -> {
+                atvEmailLog.error = "Field must not be empty"
+                return false
+            }
+        }
+        return true
+
+
+    }
 }

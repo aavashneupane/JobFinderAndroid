@@ -18,7 +18,7 @@ import com.aavash.jobfinder.LoginActivity
 import com.aavash.jobfinder.MainActivity
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.api.ServiceBuilder
-import com.aavash.jobfinder.db.UserDB
+//import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.userRepository.UserRepository
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
@@ -79,10 +79,12 @@ class ProfileFragment : Fragment() {
 
                 val repository = UserRepository()
                 val response = repository.getUser()
+            //   tvFirstName.setText("$response")
+
                 if (response.success==true) {
                     Toast.makeText(
                             context,
-                            "error in success", Toast.LENGTH_SHORT
+                            "success", Toast.LENGTH_SHORT
                     ).show()
                     tvFirstName.setText(response.user?.firstname)
 //                    tvFirstName.setText("Vayo?")

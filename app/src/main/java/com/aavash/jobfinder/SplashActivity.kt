@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import com.aavash.jobfinder.api.ServiceBuilder
-import com.aavash.jobfinder.db.UserDB
+//import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.userRepository.UserRepository
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.*
