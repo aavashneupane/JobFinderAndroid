@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
+            android:text="Update Profile"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -50,13 +50,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/imgLogout"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:padding="6dp"
-                android:src="@drawable/logout" />
+
 
 
         </RelativeLayout>
@@ -104,16 +98,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tvFirstName"
+                    <EditText
+                        android:id="@+id/tvUpdateFirstName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/proximanovaregular"
-                        android:text="Aavash Neupane"
+                        android:hint="Aavash"
                         android:textColor="#424242"
                         android:textSize="21sp"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tvUpdateLastName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/proximanovaregular"
+                        android:hint="Neupane"
+                        android:textColor="#424242"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -376,14 +383,15 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_call_24dp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <EditText
+                                android:id="@+id/tvUpdatePhone"
+                                android:layout_width="16dp"
+                                android:layout_height="18dp"
                                 android:layout_marginLeft="20dp"
+                                android:fontFamily="@font/proximanovaregular"
                                 android:text="9843818066"
-                                android:textSize="15sp"
                                 android:textColor="@color/goodgrey"
-                                android:fontFamily="@font/proximanovaregular" />
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -394,14 +402,15 @@
                             android:paddingRight="8dp">
 
                             <ImageView
+
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:background="@drawable/circular_grey_bordersolid"
                                 android:padding="10dp"
                                 android:src="@drawable/ic_email_24dp" />
 
-                            <TextView
-                                android:id="@+id/tvemailProfile"
+                            <EditText
+                                android:id="@+id/tvUpdateEmail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -425,11 +434,12 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_location_24dp" />
 
-                            <TextView
+                            <EditText
+                                android:id="@+id/tvUpdateAddress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="Kathmandu, Nepal"
+                                android:hint="Kathmandu, Nepal"
                                 android:textSize="15sp"
                                 android:textColor="@color/goodgrey"
                                 android:fontFamily="@font/proximanovaregular" />

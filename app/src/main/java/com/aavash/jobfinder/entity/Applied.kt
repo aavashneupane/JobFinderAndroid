@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Applied(
+        var _id:String?=null,
         var confirmStatus: String? = null,
         var userid: User ?= null,
         var jobid: Job? = null,
@@ -17,6 +18,7 @@ data class Applied(
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
+            parcel.readString(),
             TODO("userid"),
             parcel.readParcelable(Job::class.java.classLoader),
             parcel.readString()) {
@@ -24,6 +26,7 @@ data class Applied(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(_id)
         parcel.writeString(confirmStatus)
         parcel.writeParcelable(jobid, flags)
         parcel.writeString(createdAt)

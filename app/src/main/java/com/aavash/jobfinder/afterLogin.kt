@@ -15,7 +15,7 @@ class afterLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_after_login)
-        rvDisplayStudents = findViewById(R.id.rvJobs)
+      //  rvDisplayStudents = findViewById(R.id.rvJobs)
         //for api
 
 //        CoroutineScope(Dispatchers.IO).launch {

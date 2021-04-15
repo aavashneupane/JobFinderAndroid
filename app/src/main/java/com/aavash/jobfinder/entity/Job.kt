@@ -10,44 +10,42 @@ import java.io.Serializable
 @Entity
 data class Job(
   //  val _id:String?=null,
-    val jobtitle: String?,
-    val jobtype: String?,
-    val jobdescription: String?,
-    val requiredexperience: String?,
-    val jobprice: String?,
-    val creator: String?,
-    val createdAt: String?,
-    val photo:String?=null
+    var jobtitle: String?,
+    var jobtype: String?,
+    var jobdescription: String?,
+    var requiredexperience: String?,
+    var jobprice: String?,
+    var creator: String?,
+    var createdAt: String?,
+    var photo:String?=null
 
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
-    var jobid: Int = 0
+    var id: Int = 0
 
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString()
-
-
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
     ) {
-            jobid = parcel.readInt()
+        id = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(jobtitle)
-        parcel.writeValue(jobtype)
+        parcel.writeString(jobtype)
         parcel.writeString(jobdescription)
         parcel.writeString(requiredexperience)
         parcel.writeString(jobprice)
         parcel.writeString(creator)
         parcel.writeString(createdAt)
         parcel.writeString(photo)
-        parcel.writeInt(jobid)
+        parcel.writeInt(id)
     }
 
     override fun describeContents(): Int {
@@ -63,6 +61,4 @@ data class Job(
             return arrayOfNulls(size)
         }
     }
-
-
 }

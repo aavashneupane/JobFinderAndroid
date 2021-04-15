@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aavash.jobfinder">
 
-
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -21,22 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
-
+        <activity android:name=".UpdateProfile"></activity>
         <activity
             android:name=".UpdateJobActivity"
-            android:label="@string/title_activity_update_job"></activity>
-
-
+            android:label="@string/title_activity_update_job" />
         <activity
             android:name=".dashboard"
-            android:label="@string/title_activity_dashboard">
-
-        </activity>
+            android:label="@string/title_activity_dashboard"></activity>
         <activity
             android:name=".afterLogin"
-            android:label="@string/title_activity_after_login"></activity>
+            android:label="@string/title_activity_after_login" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,12 +38,8 @@
         </activity>
         <activity android:name=".homeScreen" />
         <activity android:name=".registration" />
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

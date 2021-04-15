@@ -1,16 +1,19 @@
 package com.aavash.jobfinder.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.entity.Applied
+import com.aavash.jobfinder.userRepository.appliedRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AppliedAdapter(
         private val context: Context,
@@ -21,6 +24,7 @@ class AppliedAdapter(
         val tvAppliedType: TextView = view.findViewById(R.id.tvAppliedType)
         val tvAppliedstatus: TextView = view.findViewById(R.id.tvAppliedstatus)
         val tvAppliedCreator: TextView = view.findViewById(R.id.tvAppliedCreator)
+        val tvAppliedCreatedAt: TextView = view.findViewById(R.id.tvAppliedCreatedAt)
         val btnDeleteApplied: TextView = view.findViewById(R.id.btnDeleteApplied)
 
 
@@ -30,6 +34,7 @@ class AppliedAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.myapplied, parent, false)
+
         return BookingViewHolder(view)
     }
 
@@ -38,16 +43,20 @@ class AppliedAdapter(
         holder.tvAppliedTitle.text = applied.jobid?.jobtitle
         holder.tvAppliedType.text = applied.jobid?.jobtype
         holder.tvAppliedstatus.text = applied.confirmStatus
-        holder.tvAppliedCreator.text = applied.jobid?.creator
+        holder.tvAppliedCreatedAt.text = applied.createdAt
+        var id=applied._id
 
         holder.btnDeleteApplied.setOnClickListener {
 
             val builder = android.app.AlertDialog.Builder(context)
             builder.setTitle("Delete application?")
-            builder.setMessage("Are you sure you want to delete ${applied.jobid} ??")
+            builder.setMessage("Are you sure you want to delete ${applied.jobid?.jobtitle} from your list??")
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { _, _ ->
-                //             deleteBooking(booking)
+                if (id != null) {
+                    deleteApplied(id)
+                }
+                Toast.makeText(context, "Application deleted successfully", Toast.LENGTH_SHORT).show()
             }
             builder.setNegativeButton("No") { _, _ ->
                 Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
@@ -60,16 +69,40 @@ class AppliedAdapter(
     }
 
 
-//    private fun deleteBooking(booking: Booking) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            BookingDB.getInstance(context).getBookingDAO()
-//                .DeleteBooking(booking)
-//            withContext(Dispatchers.Main) {
-//                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//    }
+    fun deleteApplied(id: String) {
+    CoroutineScope(Dispatchers.IO).launch {
+        try {
+//                user= UserDB.getInstance(this@LoginActivity)
+//                        .getUserDAO().checkUser(email,password)
+//                val userdao =UserDB.getInstance(this@LoginActivity)
+//                        .getUserDAO()
+            val repository = appliedRepository()
+            val response = repository.deleteJob(id)
+            if (response.success==true) {
+                Toast.makeText(
+                        context,
+                        "Deleted successfully", Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                            context,
+                            "Cannot delete.", Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        } catch (ex: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                        context,
+                        "Error", Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        }
+    }
+}
 
     override fun getItemCount(): Int {
         return lstApplied.size

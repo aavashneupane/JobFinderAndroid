@@ -14,16 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/proximanovaregular"
-        android:text="Jobs Available right now"
+        android:text="Extras"
         android:textColor="#424242"
         android:textSize="21sp"
         android:textStyle="bold"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvApplied"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         />
 
 

@@ -14,10 +14,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.aavash.jobfinder.LoginActivity
-import com.aavash.jobfinder.MainActivity
-import com.aavash.jobfinder.R
+import com.aavash.jobfinder.*
 import com.aavash.jobfinder.api.ServiceBuilder
+import com.aavash.jobfinder.entity.Job
 //import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.userRepository.UserRepository
 import com.google.android.material.snackbar.Snackbar
@@ -32,15 +31,12 @@ class ProfileFragment : Fragment() {
     private lateinit var tvFirstName:TextView
     private lateinit var tvLastName:TextView
     private lateinit var tvEmail: TextView
+    private lateinit var btnEditProfile: TextView
+
     private lateinit var imgLogout:ImageView
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
     }
 
@@ -51,50 +47,39 @@ class ProfileFragment : Fragment() {
 
 
         val root: View = inflater.inflate(R.layout.fragment_profile, container, false)
+
+
         tvFirstName = root.findViewById(R.id.tvFirstName)
         //tvLastName = root.findViewById(R.id.tvLastName)
 
         tvEmail = root.findViewById(R.id.tvemailProfile)
+        btnEditProfile = root.findViewById(R.id.btnEditProfile)
         imgLogout=root.findViewById(R.id.imgLogout)
-        //tvFirstName.setText("Vayo?")
 
-//        val userdao = context?.let {
-//            UserDB.getInstance(it)
-//                    .getUserDAO()
-//        }
-//        val repo = UserRepository(userdao!!)
-//
-//        profileViewModel =
-//                ViewModelProvider(this, ProfileViewModelFactory(repo)).get(ProfileViewModel::class.java)
-//
-//        profileViewModel.getLogggedInUser()
-//
-//        profileViewModel.user.observe(viewLifecycleOwner, Observer { user ->
-//           // tvFirstName.text = user.firstname
-//            tvEmail.text = user.email
-//        })
+
+        btnEditProfile.setOnClickListener {
+            startActivity(
+                    Intent(
+                            context,
+                            UpdateProfile::class.java
+                    )
+            )
+
+        }
+
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
 
                 val repository = UserRepository()
                 val response = repository.getUser()
-            //   tvFirstName.setText("$response")
 
                 if (response.success==true) {
                     Toast.makeText(
                             context,
                             "success", Toast.LENGTH_SHORT
                     ).show()
-                    tvFirstName.setText(response.user?.firstname)
-//                    tvFirstName.setText("Vayo?")
-                    response.user?.firstname?.let { Log.d("Firstname", it) }
-
-
-
                     tvEmail.setText(response.user!!.email)
-
-
 
                 } else {
                     withContext(Dispatchers.Main) {
@@ -108,10 +93,10 @@ class ProfileFragment : Fragment() {
                             snack.dismiss()
 
                         })
-                        snack.show()
+
                         Toast.makeText(
                                 context,
-                                "Error after success", Toast.LENGTH_SHORT
+                                "Error", Toast.LENGTH_SHORT
                         ).show()
                     }
                 }

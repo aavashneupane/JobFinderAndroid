@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.adapter.AppliedAdapter
 import com.aavash.jobfinder.adapter.JobAdapter
+import com.aavash.jobfinder.entity.Applied
 import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.userRepository.appliedRepository
 import com.aavash.jobfinder.userRepository.jobRepository
@@ -23,50 +24,20 @@ import kotlinx.coroutines.withContext
 
 
 class HomeFragment : Fragment() {
-    lateinit var rvJobs : RecyclerView
-    private var JobList = mutableListOf<Job>()
 
+    private var JobList = mutableListOf<Job>()
+    private lateinit var rvJobs: RecyclerView
 
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val view= inflater.inflate(R.layout.fragment_home, container, false)
-        rvJobs = view.findViewById(R.id.rvJobs)
-      //  rvJobs.adapter?.notifyDataSetChanged()
-
-        return view
-
-    }
 
 
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        rvJobs=root.findViewById(R.id.rvJobs)
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-//        CoroutineScope(Dispatchers.IO).launch {
-//        try {
-//            val repository = jobRepository()
-//                val response = repository.getJobs()
-//            if (response.success == true) {
-//                JobList = response.data!!
-//                withContext(Main){
-//                    rvJobs.apply {
-//                        layoutManager = GridLayoutManager(context,2)
-//                        this.adapter = JobAdapter(JobList,context)
-//                    }
-//                }
-//            }
-//
-//        } catch (ex: Exception) {
-//            withContext(Dispatchers.Main) {
-//                Toast.makeText(
-//                        context,
-//                        "No Jobs!!!", Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val repository= jobRepository()
@@ -83,10 +54,16 @@ class HomeFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                             context,
-                            "No jobs available right now!!!", Toast.LENGTH_SHORT
+                            "No jobs!!!", Toast.LENGTH_SHORT
                     ).show()
                 }
             }
         }
-}
+
+        return root
+
+    }
+
+
+
 }

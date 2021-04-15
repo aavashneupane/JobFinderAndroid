@@ -60,37 +60,7 @@ class JobsFragment : Fragment() {
         return root
 
     }
-//
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val repository= appliedRepository()
-//                val response=repository.getAppliedJobs()
-//                if (response.success==true){
-//                    appliedList=response.data!!
-//
-//                }
-//
-//            }catch (ex:Exception){
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(
-//                            context,
-//                            "Not Applied in any jobs!!!", Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }
-//
-//    }
-//
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//
-//    }
+
 
 
 }
