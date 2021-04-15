@@ -10,12 +10,13 @@ import java.io.Serializable
 @Entity
 data class Job(
   //  val _id:String?=null,
+    var _id: String?,
     var jobtitle: String?,
     var jobtype: String?,
     var jobdescription: String?,
     var requiredexperience: String?,
     var jobprice: String?,
-    var creator: String?,
+    var creator: User?,
     var createdAt: String?,
     var photo:String?=null
 
@@ -30,6 +31,7 @@ data class Job(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        TODO("creator"),
         parcel.readString(),
         parcel.readString()
     ) {
@@ -37,12 +39,12 @@ data class Job(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(_id)
         parcel.writeString(jobtitle)
         parcel.writeString(jobtype)
         parcel.writeString(jobdescription)
         parcel.writeString(requiredexperience)
         parcel.writeString(jobprice)
-        parcel.writeString(creator)
         parcel.writeString(createdAt)
         parcel.writeString(photo)
         parcel.writeInt(id)

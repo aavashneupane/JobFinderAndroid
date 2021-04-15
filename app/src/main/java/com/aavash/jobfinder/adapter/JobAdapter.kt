@@ -1,9 +1,6 @@
 package com.aavash.jobfinder.adapter
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
-import com.aavash.jobfinder.UpdateJobActivity
-import com.aavash.jobfinder.api.ServiceBuilder
-import com.aavash.jobfinder.entity.Applied
 import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.userRepository.jobRepository
-import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,29 +47,68 @@ class JobAdapter(
         holder.jobdescription.text = jobs.jobdescription
         holder.requiredexperience.text = jobs.requiredexperience
         holder.jobprice.text = jobs.jobprice
-        holder.creator.text = jobs.creator
+        //holder.creator.text = jobs.creator.toString()
         holder.createdAt.text = jobs.createdAt
+        var id=jobs._id
 
         holder.btnApply.setOnClickListener {
-
+            val builder = android.app.AlertDialog.Builder(context)
+            builder.setTitle("Apply for this job?")
+            builder.setMessage("Are you sure you want to apply in ${id}??")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("Yes") { _, _ ->
+                if (id != null) {
+                    ApplyJob(id)
+                }
+                Toast.makeText(context, "Job applied successfully", Toast.LENGTH_SHORT).show()
+            }
+            builder.setNegativeButton("No") { _, _ ->
+                Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
+            }
+            val alertDialog: android.app.AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
 
         }
 
     }
 
 
-//    private fun deleteBooking(booking: Booking) {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            BookingDB.getInstance(context).getBookingDAO()
-//                .DeleteBooking(booking)
-//            withContext(Dispatchers.Main) {
-//                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//    }
 
     override fun getItemCount(): Int {
         return lstJobs.size
+    }
+
+    fun ApplyJob(id: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+
+                val repository = jobRepository()
+                val response = repository.applyJob(id)
+                if (response.success==true) {
+                    Toast.makeText(
+                        context,
+                        "Applied successfully", Toast.LENGTH_SHORT
+                    ).show()
+
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            context,
+                            "Cannot apply.", Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            } catch (ex: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        "Error", Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            }
+        }
     }
 }

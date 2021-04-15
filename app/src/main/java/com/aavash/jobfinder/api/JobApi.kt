@@ -10,7 +10,7 @@ interface JobApi {
     @POST("job/applyJob/{id}")
     suspend fun applyJob(
         @Header("Authorization") token: String,
-        @Body job: Job
+        @Path("id") id:String
     ): Response<ApplyJobResponse>
 
     @GET("job/showall")

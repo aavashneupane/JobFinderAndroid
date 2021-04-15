@@ -47,6 +47,9 @@ class HomeFragment : Fragment() {
                         JobList = response.data!!
                         rvJobs.adapter = context?.let { JobAdapter(it, JobList) }
                         rvJobs.layoutManager = LinearLayoutManager(context)
+
+
+
                     }
                 }
             }

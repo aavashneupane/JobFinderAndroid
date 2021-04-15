@@ -10,7 +10,7 @@ import okhttp3.MultipartBody
 
 class jobRepository : MyApiRequest() {
     private val jobApi = ServiceBuilder.buildService(JobApi::class.java)
-    suspend fun applyJob(job: Job):ApplyJobResponse{
+    suspend fun applyJob(job: String):ApplyJobResponse{
         return  apiRequest {
             jobApi.applyJob(ServiceBuilder.token!!,job)
         }

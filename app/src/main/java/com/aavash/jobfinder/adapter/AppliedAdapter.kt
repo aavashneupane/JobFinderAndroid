@@ -72,10 +72,7 @@ class AppliedAdapter(
     fun deleteApplied(id: String) {
     CoroutineScope(Dispatchers.IO).launch {
         try {
-//                user= UserDB.getInstance(this@LoginActivity)
-//                        .getUserDAO().checkUser(email,password)
-//                val userdao =UserDB.getInstance(this@LoginActivity)
-//                        .getUserDAO()
+
             val repository = appliedRepository()
             val response = repository.deleteJob(id)
             if (response.success==true) {
