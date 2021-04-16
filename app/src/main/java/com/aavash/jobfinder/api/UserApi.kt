@@ -1,5 +1,6 @@
 package com.aavash.jobfinder.api
 
+import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.response.LoginResponse
 import com.aavash.jobfinder.response.UserResponse
@@ -26,4 +27,20 @@ interface UserApi {
     suspend fun getLoginUser(
             @Header("Authorization") token: String
     ): Response<UserResponse>
+
+    @FormUrlEncoded
+    @PUT("profile/editProfileCustomer2/{id}")
+    suspend fun editUser(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Field ("firstname") firstname : String,
+        @Field ("lastname") lastname : String,
+        @Field ("age") age : String,
+        @Field ("address") address : String,
+        @Field ("phone") phone : String,
+        @Field ("userbio") userbio : String,
+        @Field ("projects") projects : String,
+        @Field ("experience") experience : String
+
+    ):Response<UserResponse>
 }

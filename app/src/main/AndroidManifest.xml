@@ -19,13 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UpdateProfile"></activity>
+        <activity android:name=".ApplyJob"></activity>
+        <activity android:name=".UpdateProfile" />
         <activity
             android:name=".UpdateJobActivity"
             android:label="@string/title_activity_update_job" />
         <activity
             android:name=".dashboard"
-            android:label="@string/title_activity_dashboard"></activity>
+            android:label="@string/title_activity_dashboard" />
         <activity
             android:name=".afterLogin"
             android:label="@string/title_activity_after_login" />
@@ -38,8 +39,8 @@
         </activity>
         <activity android:name=".homeScreen" />
         <activity android:name=".registration" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

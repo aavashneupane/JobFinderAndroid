@@ -1,6 +1,7 @@
 package com.aavash.jobfinder.fragments
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +12,12 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.aavash.jobfinder.*
+import com.aavash.jobfinder.Helper.Notification
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.entity.Job
 //import com.aavash.jobfinder.db.UserDB
@@ -30,6 +33,13 @@ import kotlinx.coroutines.withContext
 class ProfileFragment : Fragment() {
     private lateinit var tvFirstName:TextView
     private lateinit var tvLastName:TextView
+    private lateinit var tvProfileUserbio:TextView
+    private lateinit var tvProfilephone:TextView
+    private lateinit var tvProfileAge:TextView
+    private lateinit var tvProfileAddress:TextView
+    private lateinit var tvProfileExperience:TextView
+    private lateinit var tvProfileProjects:TextView
+
     private lateinit var tvEmail: TextView
     private lateinit var btnEditProfile: TextView
 
@@ -40,6 +50,7 @@ class ProfileFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -50,14 +61,22 @@ class ProfileFragment : Fragment() {
 
 
         tvFirstName = root.findViewById(R.id.tvFirstName)
-        //tvLastName = root.findViewById(R.id.tvLastName)
 
+        tvProfileUserbio = root.findViewById(R.id.tvProfileUserbio)
+        tvProfilephone = root.findViewById(R.id.tvProfilephone)
+        tvProfileAge = root.findViewById(R.id.tvProfileAge)
+        tvProfileAddress = root.findViewById(R.id.tvProfileAddress)
+        tvProfileExperience = root.findViewById(R.id.tvProfileExperience)
+        tvProfileProjects = root.findViewById(R.id.tvProfileProjects)
         tvEmail = root.findViewById(R.id.tvemailProfile)
         btnEditProfile = root.findViewById(R.id.btnEditProfile)
         imgLogout=root.findViewById(R.id.imgLogout)
 
 
         btnEditProfile.setOnClickListener {
+
+//            val a= Notification
+//            context?.let { it1 -> a.givenotification(it1,"ooooo") }
             startActivity(
                     Intent(
                             context,
@@ -68,18 +87,33 @@ class ProfileFragment : Fragment() {
         }
 
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
+        CoroutineScope(Dispatchers.Main).launch {
+
 
                 val repository = UserRepository()
                 val response = repository.getUser()
 
+
                 if (response.success==true) {
                     Toast.makeText(
                             context,
-                            "success", Toast.LENGTH_SHORT
+                            response.data!!.email, Toast.LENGTH_SHORT
                     ).show()
-                    tvEmail.setText(response.user!!.email)
+
+                    val a=(response.data!!.firstname)
+
+                    val b=(response.data!!.lastname)
+                    val name=a+" "+b
+
+                    tvEmail.setText(response.data!!.email)
+                    tvProfileUserbio.setText(response.data!!.userbio)
+                    tvProfileAddress.setText(response.data!!.address)
+                    tvProfilephone.setText(response.data!!.phone)
+                    tvProfileAge.setText("Age: "+response.data!!.age)
+                    tvProfileExperience.setText(response.data!!.experience)
+                    tvProfileProjects.setText(response.data!!.projects)
+                    tvProfileAddress.setText(response.data!!.address)
+                    tvFirstName.setText(name)
 
                 } else {
                     withContext(Dispatchers.Main) {
@@ -101,15 +135,7 @@ class ProfileFragment : Fragment() {
                     }
                 }
 
-            } catch (ex: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                            context,
-                            "Profile error", Toast.LENGTH_SHORT
-                    ).show()
 
-                }
-            }
         }
 
 
@@ -139,7 +165,12 @@ class ProfileFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun logout(){
+        val a= Notification
+
+        context?.let { a.givenotification(it,"You have successfully logged out.") }
+
         context?.deleteSharedPreferences("MyPref");
     }
 

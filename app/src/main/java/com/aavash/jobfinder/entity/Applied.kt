@@ -9,26 +9,28 @@ import androidx.room.PrimaryKey
 data class Applied(
         var _id:String?=null,
         var confirmStatus: String? = null,
-        var userid: User ?= null,
-        var jobid: Job? = null,
+        var userid: String ?= null,
+        var jobid: String? = null,
         var createdAt: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var stdId: Int = 0
 
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            TODO("userid"),
-            parcel.readParcelable(Job::class.java.classLoader),
-            parcel.readString()) {
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    ) {
         stdId = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(_id)
         parcel.writeString(confirmStatus)
-        parcel.writeParcelable(jobid, flags)
+        parcel.writeString(userid)
+        parcel.writeString(jobid)
         parcel.writeString(createdAt)
         parcel.writeInt(stdId)
     }

@@ -1,6 +1,8 @@
 package com.aavash.jobfinder.adapter
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +10,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.aavash.jobfinder.MainActivity
 import com.aavash.jobfinder.R
+import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.userRepository.jobRepository
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,7 +30,7 @@ class JobAdapter(
 ) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     class JobViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imgJob : ImageView=view.findViewById(R.id.imgJob)
+        var imgJob : ImageView=view.findViewById(R.id.imgJob)
         val jobtitle : TextView=view.findViewById(R.id.tvJobTitle)
         val jobtype : TextView=view.findViewById(R.id.tvJobType)
         val jobdescription : TextView=view.findViewById(R.id.tvJobdescription)
@@ -47,6 +54,15 @@ class JobAdapter(
         holder.jobdescription.text = jobs.jobdescription
         holder.requiredexperience.text = jobs.requiredexperience
         holder.jobprice.text = jobs.jobprice
+
+        val imagePath = ServiceBuilder.loadImagePath() + jobs.photo!!.replace("\\", "/");
+//        val imgUrl="http://10.0.2.2:90/public/images/" +flight.image!!.replace("\\", "/");
+
+        //load image with Glide library
+        Glide.with(context)
+            .load(imagePath)
+            .into(holder.imgJob)
+
         //holder.creator.text = jobs.creator.toString()
         holder.createdAt.text = jobs.createdAt
         var id=jobs._id
@@ -58,7 +74,10 @@ class JobAdapter(
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setPositiveButton("Yes") { _, _ ->
                 if (id != null) {
-                    ApplyJob(id)
+                  //  ApplyJob(id)
+                    val intent = Intent (context, Main::class.java)
+                    context.startActivity(intent)
+
                 }
                 Toast.makeText(context, "Job applied successfully", Toast.LENGTH_SHORT).show()
             }

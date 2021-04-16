@@ -1,6 +1,7 @@
 package com.aavash.jobfinder.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +40,9 @@ class JobsFragment : Fragment() {
             try {
                 val repository= appliedRepository()
                 val response=repository.getAppliedJobs()
+                Log.d("jobResponse", response.data?.get(0)?.jobid.toString())
                 if (response.success==true){
+
                     withContext(Dispatchers.Main) {
                         appliedList = response.data!!
                         rvApplied.adapter = context?.let { AppliedAdapter(it, appliedList) }

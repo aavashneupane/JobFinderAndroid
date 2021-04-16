@@ -23,7 +23,7 @@ class jobRepository : MyApiRequest() {
 
 
 
-    suspend fun updateJob(id: String,job: Job) : UpdateJobResponse {
+    suspend fun updateJob(id: String,job: Job) : UpdateUserResponse {
         return apiRequest {
             jobApi.updateJob(ServiceBuilder.token!!,id,job)
         }

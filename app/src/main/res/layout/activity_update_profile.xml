@@ -122,7 +122,8 @@
 
 
 
-                    <TextView
+                    <EditText
+                        android:id="@+id/tvUpdateAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/proximanovaregular"
@@ -316,8 +317,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1" />
 
-                            <TextView
-                                android:id="@+id/btnEditProfile"
+                            <Button
+                                android:id="@+id/btnApplyEdit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Edit"
@@ -327,11 +328,11 @@
                                 android:textSize="14sp" />
                         </LinearLayout>
 
-                        <TextView
+                        <EditText
+                            android:id="@+id/tvUpdateUserbio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/my_desc" />
+                            android:layout_marginTop="10dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -409,7 +410,7 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_email_24dp" />
 
-                            <EditText
+                            <TextView
                                 android:id="@+id/tvUpdateEmail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -495,15 +496,17 @@
                                 android:padding="10dp"
                                 android:src="@drawable/paintbrush" />
 
-                            <TextView
+                            <EditText
+                                android:id="@+id/tvUpdateExperience"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="Expert in Photoshop, Adobe XD"
+
                                 android:textSize="15sp"/>
                         </LinearLayout>
 
                         <LinearLayout
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -517,11 +520,12 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_email_24dp" />
 
-                            <TextView
+                            <EditText
+                                android:id="@+id/tvUpdateProjects"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="aavashneupane4@gmail.com"
+                                android:text="Projects"
                                 android:textSize="15sp" />
                         </LinearLayout>
 

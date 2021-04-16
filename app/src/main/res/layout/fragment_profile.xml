@@ -116,10 +116,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvProfileAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/proximanovaregular"
-                        android:text="Android Developer"
+                        android:text="Age:"
                         android:textSize="14sp" />
 
 
@@ -321,6 +322,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tvProfileUserbio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -377,6 +379,7 @@
                                 android:src="@drawable/ic_call_24dp" />
 
                             <TextView
+                                android:id="@+id/tvProfilephone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -426,6 +429,7 @@
                                 android:src="@drawable/ic_location_24dp" />
 
                             <TextView
+                                android:id="@+id/tvProfileAddress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -486,6 +490,7 @@
                                 android:src="@drawable/paintbrush" />
 
                             <TextView
+                                android:id="@+id/tvProfileExperience"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -508,10 +513,11 @@
                                 android:src="@drawable/ic_email_24dp" />
 
                             <TextView
+                                android:id="@+id/tvProfileProjects"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:text="aavashneupane4@gmail.com"
+                                android:text="Projetcs"
                                 android:textSize="15sp" />
                         </LinearLayout>
 

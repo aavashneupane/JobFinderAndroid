@@ -33,7 +33,7 @@ interface JobApi {
         @Header("Authorization") token: String,
         @Path("id") id: String,
         @Body job: Job
-    ):Response<UpdateJobResponse>
+    ):Response<UpdateUserResponse>
 
 
     @Multipart

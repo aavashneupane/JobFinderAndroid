@@ -1,5 +1,5 @@
 package com.aavash.jobfinder.response
 
-data class UpdateJobResponse (
+data class UpdateUserResponse (
     val success : Boolean? = null
 )

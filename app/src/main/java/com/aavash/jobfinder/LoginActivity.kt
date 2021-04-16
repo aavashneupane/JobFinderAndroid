@@ -14,6 +14,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.api.ServiceBuilder.token
 //import com.aavash.jobfinder.db.UserDB
@@ -41,6 +42,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
     private val channelId="com.aavash.jobfinder"
     private val description="Notification"
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         notificationManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         super.onCreate(savedInstanceState)
@@ -71,6 +73,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun login() {
         val email = atvEmailLog.text.toString()
         val password = atvPasswordLog.text.toString()
@@ -86,11 +89,15 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                 if (response.success==true) {
                     Log.i("em",email)
                     Log.i("pw",password)
-                    createNotification(email)
+                 //   createNotification(email)
 
                     ServiceBuilder.token = "Bearer " + response.token
 
                     //to save user details
+
+                        val a= com.aavash.jobfinder.Helper.Notification
+
+                    a.givenotification(this@LoginActivity,"You have successfully logged in.")
 
                     startActivity(
                         Intent(
@@ -123,6 +130,9 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
                         this@LoginActivity,
                         "Login error", Toast.LENGTH_SHORT
                     ).show()
+                    val a= com.aavash.jobfinder.Helper.Notification
+
+                    a.givenotification(this@LoginActivity,"Error loggin in.")
 
                 }
             }
@@ -170,35 +180,35 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
 
 
 ///for notification
-fun createNotification(value:String){
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        notificationChannel= NotificationChannel(channelId,description, NotificationManager.IMPORTANCE_HIGH)
-        notificationChannel.enableVibration(true)
-        notificationManager.createNotificationChannel(notificationChannel)
-
-
-        builder= Notification.Builder(this@LoginActivity,channelId)
-            .setContentTitle("Login Detail")
-            .setContentText("Hello $value. You have successfully logged in to your account. Welcome!!")
-            .setSmallIcon(R.drawable.icon_person)
-            .setOngoing(false)
-        // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
-        // .setContentIntent(pendingIntent)
-
-
-    }else
-    {
-        builder= Notification.Builder(this@LoginActivity)
-            .setContentTitle("Login Detail")
-            .setContentText("Hello ($value). You have successcully logged in to your account. Welcome!!")
-            .setSmallIcon(R.drawable.icon_person)
-        // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
-        //  .setContentIntent(pendingIntent)
-
-    }
-    notificationManager.notify(1234,builder.build())
-}
+//fun createNotification(value:String){
+//
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//        notificationChannel= NotificationChannel(channelId,description, NotificationManager.IMPORTANCE_HIGH)
+//        notificationChannel.enableVibration(true)
+//        notificationManager.createNotificationChannel(notificationChannel)
+//
+//
+//        builder= Notification.Builder(this@LoginActivity,channelId)
+//            .setContentTitle("Login Detail")
+//            .setContentText("Hello $value. You have successfully logged in to your account. Welcome!!")
+//            .setSmallIcon(R.drawable.icon_person)
+//            .setOngoing(false)
+//        // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
+//        // .setContentIntent(pendingIntent)
+//
+//
+//    }else
+//    {
+//        builder= Notification.Builder(this@LoginActivity)
+//            .setContentTitle("Login Detail")
+//            .setContentText("Hello ($value). You have successcully logged in to your account. Welcome!!")
+//            .setSmallIcon(R.drawable.icon_person)
+//        // .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
+//        //  .setContentIntent(pendingIntent)
+//
+//    }
+//    notificationManager.notify(1234,builder.build())
+//}
 
     override fun onClick(v: View?) {
 
