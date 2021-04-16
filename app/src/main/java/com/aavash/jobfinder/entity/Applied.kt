@@ -10,7 +10,7 @@ data class Applied(
         var _id:String?=null,
         var confirmStatus: String? = null,
         var userid: String ?= null,
-        var jobid: String? = null,
+        var jobid: String?,
         var createdAt: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)

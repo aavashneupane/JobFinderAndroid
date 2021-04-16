@@ -46,14 +46,14 @@ class AppliedAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
         val applied = lstApplied[position]
-//        holder.tvAppliedTitle.text = applied.jobid?.jobtitle
+        holder.tvAppliedTitle.text = applied.jobid.toString()
 //        holder.tvAppliedType.text = applied.jobid?.jobtype
         holder.tvAppliedstatus.text = applied.confirmStatus
         holder.tvAppliedCreatedAt.text = applied.createdAt
 
-        if (applied.confirmStatus=="Confirmed"){
+        if (applied.confirmStatus=="Confirmed"||applied.confirmStatus=="denied"){
             val a= Notification
-            context?.let { it1 -> a.givenotification(it1,"ooooo") }
+            context?.let { it1 -> a.givenotification(it1,"Your application for (${applied.stdId} has been (${applied.confirmStatus})") }
         }
 
         var id=applied._id

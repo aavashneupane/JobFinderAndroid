@@ -21,6 +21,11 @@ class jobRepository : MyApiRequest() {
         }
     }
 
+    suspend fun getSingleJob(id: String): SingleAppliedResponse {
+        return apiRequest {
+            jobApi.getSingleJob(ServiceBuilder.token!!,id)
+        }
+    }
 
 
     suspend fun updateJob(id: String,job: Job) : UpdateUserResponse {

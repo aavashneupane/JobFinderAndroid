@@ -18,7 +18,9 @@ data class User(
     val role: String? = null,
     val projects: String? = null,
     val experience: String? = null,
-    val userbio: String? = null
+    val company: String? = null,
+    val userbio: String? = null,
+    val photo: String? = null
 
 
 )

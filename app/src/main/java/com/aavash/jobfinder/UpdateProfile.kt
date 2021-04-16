@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.userRepository.UserRepository
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +30,7 @@ class UpdateProfile : AppCompatActivity() {
     private lateinit var tvUpdateUserbio:TextView
     private lateinit var tvUpdateEmail:TextView
     private lateinit var btnApplyEdit:Button
+    private lateinit var imgUpdateProf:ImageView
     public  lateinit var id:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +51,9 @@ class UpdateProfile : AppCompatActivity() {
 
         tvUpdateFirstName=findViewById(R.id.tvUpdateFirstName)
         tvUpdateLastName=findViewById(R.id.tvUpdateLastName)
+        imgUpdateProf=findViewById(R.id.imgUpdateProf)
         btnApplyEdit=findViewById(R.id.btnApplyEdit)
+
 
         CoroutineScope(Dispatchers.Main).launch {
 
@@ -68,10 +74,22 @@ class UpdateProfile : AppCompatActivity() {
                 tvUpdateAddress.setText(response.data!!.address)
                 tvUpdatePhone.setText(response.data!!.phone)
                 tvUpdateEmail.setText(response.data!!.email)
-                tvUpdateAge.setText("Age: "+response.data!!.age)
+                tvUpdateAge.setText(response.data!!.age)
                 tvUpdateExperience.setText(response.data!!.experience)
                 tvUpdateProjects.setText(response.data!!.projects)
                 tvUpdateAddress.setText(response.data!!.address)
+
+                val imagePath = ServiceBuilder.loadImagePath() + response.data.photo!!.replace("\\", "/");
+
+
+                //load image with Glide library
+                this@UpdateProfile?.let {
+                    Glide.with(it)
+                        .load(imagePath)
+                        .into(imgUpdateProf)
+                }
+
+
             } else {
                 withContext(Dispatchers.Main) {
                     val snack =

@@ -17,6 +17,14 @@ interface JobApi {
     suspend fun getAllJobs(
         @Header("Authorization") token :String
     ): Response<JobResponse>
+
+    @GET("job/showSingle/{id}")
+    suspend fun getSingleJob(
+        @Header("Authorization") token :String,
+        @Path("id") id:String
+    ): Response<SingleAppliedResponse>
+
+
     @GET("job/showMyApplied")
     suspend fun showMyApplied(
             @Header("Authorization") token :String

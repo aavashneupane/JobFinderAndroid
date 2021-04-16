@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
             try {
                 val repository= jobRepository()
                 val response=repository.getJobs()
+
                 if (response.success==true){
                     withContext(Dispatchers.Main) {
                         JobList = response.data!!

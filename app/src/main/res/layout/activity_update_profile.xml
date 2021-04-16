@@ -87,6 +87,7 @@
                     app:cardElevation="0dp">
 
                     <ImageView
+                        android:id="@+id/imgUpdateProf"
                         android:layout_width="150dp"
                         android:layout_height="90dp"
                         android:scaleType="centerCrop"
@@ -330,7 +331,7 @@
 
                         <EditText
                             android:id="@+id/tvUpdateUserbio"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp" />
                     </LinearLayout>
@@ -386,13 +387,13 @@
 
                             <EditText
                                 android:id="@+id/tvUpdatePhone"
-                                android:layout_width="16dp"
-                                android:layout_height="18dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:fontFamily="@font/proximanovaregular"
-                                android:text="9843818066"
                                 android:textColor="@color/goodgrey"
-                                android:textSize="15sp" />
+
+                                android:textSize="15sp"
+                                android:fontFamily="@font/proximanovaregular" />
                         </LinearLayout>
 
                         <LinearLayout

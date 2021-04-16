@@ -22,6 +22,7 @@ import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.entity.Job
 //import com.aavash.jobfinder.db.UserDB
 import com.aavash.jobfinder.userRepository.UserRepository
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
@@ -43,6 +44,7 @@ class ProfileFragment : Fragment() {
     private lateinit var tvEmail: TextView
     private lateinit var btnEditProfile: TextView
 
+    private lateinit var profileIMG:ImageView
     private lateinit var imgLogout:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +72,7 @@ class ProfileFragment : Fragment() {
         tvProfileProjects = root.findViewById(R.id.tvProfileProjects)
         tvEmail = root.findViewById(R.id.tvemailProfile)
         btnEditProfile = root.findViewById(R.id.btnEditProfile)
+        profileIMG=root.findViewById(R.id.profileIMG)
         imgLogout=root.findViewById(R.id.imgLogout)
 
 
@@ -114,6 +117,17 @@ class ProfileFragment : Fragment() {
                     tvProfileProjects.setText(response.data!!.projects)
                     tvProfileAddress.setText(response.data!!.address)
                     tvFirstName.setText(name)
+
+                    val imagePath = ServiceBuilder.loadImagePath() + response.data.photo!!.replace("\\", "/");
+
+
+                    //load image with Glide library
+                    context?.let {
+                        Glide.with(it)
+                            .load(imagePath)
+                            .into(profileIMG)
+                    }
+
 
                 } else {
                     withContext(Dispatchers.Main) {

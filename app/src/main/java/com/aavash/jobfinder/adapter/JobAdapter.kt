@@ -3,15 +3,16 @@ package com.aavash.jobfinder.adapter
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.aavash.jobfinder.ApplyJob
 import com.aavash.jobfinder.MainActivity
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.api.ServiceBuilder
@@ -33,12 +34,12 @@ class JobAdapter(
         var imgJob : ImageView=view.findViewById(R.id.imgJob)
         val jobtitle : TextView=view.findViewById(R.id.tvJobTitle)
         val jobtype : TextView=view.findViewById(R.id.tvJobType)
-        val jobdescription : TextView=view.findViewById(R.id.tvJobdescription)
-        val requiredexperience : TextView=view.findViewById(R.id.tvrequiredexperience)
+
+
         val jobprice : TextView=view.findViewById(R.id.tvJobprice)
         val creator : TextView=view.findViewById(R.id.tvCreator)
-        val createdAt : TextView=view.findViewById(R.id.tvCreatedAt)
-        val btnApply : Button=view.findViewById(R.id.btnApply)
+
+        val layoutList : LinearLayout=view.findViewById(R.id.layoutList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
@@ -47,48 +48,36 @@ class JobAdapter(
         return JobViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val jobs = lstJobs[position]
         holder.jobtitle.text = jobs.jobtitle
         holder.jobtype.text = jobs.jobtype
-        holder.jobdescription.text = jobs.jobdescription
-        holder.requiredexperience.text = jobs.requiredexperience
+
         holder.jobprice.text = jobs.jobprice
+        holder.creator.text = jobs.creator?.company.toString()
+        var a=jobs.jobtitle
 
         val imagePath = ServiceBuilder.loadImagePath() + jobs.photo!!.replace("\\", "/");
-//        val imgUrl="http://10.0.2.2:90/public/images/" +flight.image!!.replace("\\", "/");
+
 
         //load image with Glide library
         Glide.with(context)
             .load(imagePath)
             .into(holder.imgJob)
 
+
+
         //holder.creator.text = jobs.creator.toString()
-        holder.createdAt.text = jobs.createdAt
+
         var id=jobs._id
 
-        holder.btnApply.setOnClickListener {
-            val builder = android.app.AlertDialog.Builder(context)
-            builder.setTitle("Apply for this job?")
-            builder.setMessage("Are you sure you want to apply in ${id}??")
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setPositiveButton("Yes") { _, _ ->
-                if (id != null) {
-                  //  ApplyJob(id)
-                    val intent = Intent (context, Main::class.java)
-                    context.startActivity(intent)
 
-                }
-                Toast.makeText(context, "Job applied successfully", Toast.LENGTH_SHORT).show()
-            }
-            builder.setNegativeButton("No") { _, _ ->
-                Toast.makeText(context, "Action cancelled", Toast.LENGTH_SHORT).show()
-            }
-            val alertDialog: android.app.AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-
+        holder.layoutList.setOnClickListener{
+        val intent=Intent(context,com.aavash.jobfinder.apply::class.java)
+        context.startActivity(intent.putExtra("id",id))
         }
+
 
     }
 
@@ -98,36 +87,5 @@ class JobAdapter(
         return lstJobs.size
     }
 
-    fun ApplyJob(id: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
 
-                val repository = jobRepository()
-                val response = repository.applyJob(id)
-                if (response.success==true) {
-                    Toast.makeText(
-                        context,
-                        "Applied successfully", Toast.LENGTH_SHORT
-                    ).show()
-
-                } else {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(
-                            context,
-                            "Cannot apply.", Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-            } catch (ex: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        "Error", Toast.LENGTH_SHORT
-                    ).show()
-
-                }
-            }
-        }
-    }
 }
