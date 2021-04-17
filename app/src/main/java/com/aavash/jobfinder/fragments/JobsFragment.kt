@@ -40,7 +40,7 @@ class JobsFragment : Fragment() {
             try {
                 val repository= appliedRepository()
                 val response=repository.getAppliedJobs()
-                Log.d("jobResponse", response.data?.get(0)?.jobid.toString())
+
                 if (response.success==true){
 
                     withContext(Dispatchers.Main) {

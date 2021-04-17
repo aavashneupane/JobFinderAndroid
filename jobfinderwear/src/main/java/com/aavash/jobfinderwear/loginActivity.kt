@@ -45,6 +45,8 @@ class loginActivity : AppCompatActivity() {
         val email = atvEmailLog.text.toString()
         val password = atvPasswordLog.text.toString()
         var user: User?=null
+        Log.i("em",email)
+        Log.i("pw",password)
         CoroutineScope(Dispatchers.IO).launch {
             try {
 

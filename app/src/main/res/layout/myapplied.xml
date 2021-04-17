@@ -35,7 +35,7 @@
                 android:id="@+id/tvAppliedTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+
                 android:fontFamily="@font/proximanovaregular"
                 android:text="Job Title"
                 android:textColor="#424242"
@@ -43,6 +43,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/tvAppliedType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +58,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+
             android:paddingBottom="10dp">
 
             <LinearLayout
@@ -81,10 +82,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="Job Status"
-                        android:textSize="12sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -93,7 +93,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="N/A"
-                        android:textSize="12sp" />
+
+                        android:textSize="15sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -113,12 +114,12 @@
             android:layout_weight="2"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:padding="13dp"
+            android:padding="10dp"
             android:text="Creator"
             android:textAllCaps="true"
             android:textColor="@color/blue"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textSize="12sp"
+            />
 
         <TextView
             android:id="@+id/tvAppliedCreatedAt"
@@ -127,12 +128,12 @@
             android:layout_weight="2"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:padding="13dp"
+            android:padding="10dp"
             android:text="Time applied"
             android:textAllCaps="true"
             android:textColor="@color/blue"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textSize="12sp"
+            />
 
         <Button
             android:id="@+id/btnDeleteApplied"
@@ -141,10 +142,11 @@
             android:layout_weight="2"
             android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
-            android:padding="13dp"
+            android:padding="10dp"
+            android:background="@drawable/book_button_bg"
             android:text="Delete this Application"
             android:textAllCaps="true"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
         <!--        Temporary-->

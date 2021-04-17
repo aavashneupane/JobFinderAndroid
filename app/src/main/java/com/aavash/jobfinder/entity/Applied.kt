@@ -7,45 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Applied(
-        var _id:String?=null,
+        var _id:String="",
         var confirmStatus: String? = null,
-        var userid: String ?= null,
-        var jobid: String?,
-        var createdAt: String? = null
-) : Parcelable {
+        var jobtitle: String ?= null,
+        var jobtype: String ?= null,
+        var company: String?,
+        var createdAt: String? = null,
+        var creator: String? = null
+){
     @PrimaryKey(autoGenerate = true)
     var stdId: Int = 0
-
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-        stdId = parcel.readInt()
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(_id)
-        parcel.writeString(confirmStatus)
-        parcel.writeString(userid)
-        parcel.writeString(jobid)
-        parcel.writeString(createdAt)
-        parcel.writeInt(stdId)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Applied> {
-        override fun createFromParcel(parcel: Parcel): Applied {
-            return Applied(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Applied?> {
-            return arrayOfNulls(size)
-        }
-    }
 }

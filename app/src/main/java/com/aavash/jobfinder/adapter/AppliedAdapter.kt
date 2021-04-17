@@ -17,6 +17,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
+import java.util.*
 
 class AppliedAdapter(
         private val context: Context,
@@ -46,17 +48,25 @@ class AppliedAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
         val applied = lstApplied[position]
-        holder.tvAppliedTitle.text = applied.jobid.toString()
-//        holder.tvAppliedType.text = applied.jobid?.jobtype
+        holder.tvAppliedTitle.text = applied.jobtitle
+        holder.tvAppliedType.text = applied.jobtype
         holder.tvAppliedstatus.text = applied.confirmStatus
-        holder.tvAppliedCreatedAt.text = applied.createdAt
+
+        var date=(applied.createdAt)
+
+
+
+        holder.tvAppliedCreatedAt.text ="You applied in: "+ date?.let { convertDate(it) }
+        holder.tvAppliedCreator.text = "This job was posted by"+(applied.creator)
 
         if (applied.confirmStatus=="Confirmed"||applied.confirmStatus=="denied"){
             val a= Notification
-            context?.let { it1 -> a.givenotification(it1,"Your application for (${applied.stdId} has been (${applied.confirmStatus})") }
+            context?.let { it1 -> a.givenotification(it1,"Your application for ${applied.jobtitle} in ${applied.company} has been (${applied.confirmStatus})") }
         }
 
         var id=applied._id
+
+
 
         holder.btnDeleteApplied.setOnClickListener {
 
@@ -67,6 +77,9 @@ class AppliedAdapter(
             builder.setPositiveButton("Yes") { _, _ ->
                 if (id != null) {
                     deleteApplied(id)
+
+
+
                 }
                 Toast.makeText(context, "Application deleted successfully", Toast.LENGTH_SHORT).show()
             }
@@ -116,5 +129,11 @@ class AppliedAdapter(
 
     override fun getItemCount(): Int {
         return lstApplied.size
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertDate(date:String):Date{
+        val dates = Date.from(Instant.parse(date))
+
+        return dates
     }
 }
