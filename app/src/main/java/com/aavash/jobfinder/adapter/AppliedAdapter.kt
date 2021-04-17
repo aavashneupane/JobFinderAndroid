@@ -31,8 +31,6 @@ class AppliedAdapter(
         val tvAppliedCreator: TextView = view.findViewById(R.id.tvAppliedCreator)
         val tvAppliedCreatedAt: TextView = view.findViewById(R.id.tvAppliedCreatedAt)
         val btnDeleteApplied: TextView = view.findViewById(R.id.btnDeleteApplied)
-
-
     }
 
 
@@ -133,7 +131,6 @@ class AppliedAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     fun convertDate(date:String):Date{
         val dates = Date.from(Instant.parse(date))
-
         return dates
     }
 }

@@ -9,12 +9,13 @@ import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.response.JobResponse
 import com.aavash.jobfinder.response.LoginResponse
+import com.aavash.jobfinder.response.RegisterResponse
 import com.aavash.jobfinder.response.UserResponse
 
 class UserRepository:
     MyApiRequest() {
     private val userAPI = ServiceBuilder.buildService(UserApi::class.java)
-    suspend fun registerUser(user: User): LoginResponse {
+    suspend fun registerUser(user: User): RegisterResponse {
         return apiRequest {
             userAPI.registerUser(user)
         }

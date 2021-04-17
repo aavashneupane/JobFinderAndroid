@@ -3,16 +3,17 @@ package com.aavash.jobfinder.api
 import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.response.LoginResponse
+import com.aavash.jobfinder.response.RegisterResponse
 import com.aavash.jobfinder.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.*
 
 interface UserApi {
     //register user
-    @POST("user/add")
+    @POST("user/add1")
     suspend fun registerUser(
         @Body user: User
-    ): Response<LoginResponse>
+    ): Response<RegisterResponse>
 
     //Login user
     @FormUrlEncoded

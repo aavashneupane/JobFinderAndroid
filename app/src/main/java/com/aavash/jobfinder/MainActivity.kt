@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
     lateinit var jobsfragment: JobsFragment
     lateinit var profileFragment: ProfileFragment
     lateinit var ExtraFragment: ExtraFragment
-    lateinit var sensorManager: SensorManager
-    private var sensor:Sensor?=null
+//    lateinit var sensorManager: SensorManager
+//    private var sensor:Sensor?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
         val JobsFragment=JobsFragment()
         val ProfileFragment=ProfileFragment()
         val ExtraFragment=ExtraFragment()
-        sensorManager=getSystemService(Context.SENSOR_SERVICE) as SensorManager
+//        sensorManager=getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         makeCurrentFragment(HomeFragment)
         bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -52,12 +52,12 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
             true
         }
 
-        if(!checkSensor())
-        return
-        else{
-            sensor=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL)
-        }
+//        if(!checkSensor())
+//        return
+//        else{
+////            sensor=sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+////            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL)
+//        }
 
 
 
@@ -88,13 +88,13 @@ class MainActivity : AppCompatActivity(),SensorEventListener {
         }
     }
 
-    private fun checkSensor():Boolean{
-        var flag=true
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
-            flag=false
-        }
-        return flag
-    }
+//    private fun checkSensor():Boolean{
+//        var flag=true
+//        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
+//            flag=false
+//        }
+//        return flag
+//    }
 }
 
 

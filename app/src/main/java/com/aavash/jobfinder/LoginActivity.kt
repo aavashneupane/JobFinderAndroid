@@ -5,11 +5,16 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.AutoCompleteTextView
@@ -37,12 +42,21 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
     private lateinit var btnSignIn:Button
     private lateinit var linearLayout: LinearLayout
     private lateinit var btnSignUp:Button
+    private var sensorManager: SensorManager? = null
+    private var gyroscopeSensor: Sensor? = null
+    private var lightSensor: Sensor? = null
 
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
     lateinit var builder: Notification.Builder
     private val channelId="com.aavash.jobfinder"
     private val description="Notification"
+
+    private val permissions = arrayOf(
+        android.Manifest.permission.CAMERA,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        android.Manifest.permission.ACCESS_FINE_LOCATION
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +70,13 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
         atvPasswordLog=findViewById(R.id.atvPasswordLog)
 
         getSharedPref()
+
+
+        sensorManager = applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager?
+        gyroscopeSensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        lightSensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorManager!!.registerListener(gyroscopeSensorListener,gyroscopeSensor,SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager!!.registerListener(LightListener,lightSensor,SensorManager.SENSOR_DELAY_NORMAL)
 
         btnSignIn=findViewById(R.id.btnSignIn)
         btnSignUp=findViewById(R.id.btnSignUp)
@@ -245,4 +266,83 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener{
             vibrator.vibrate(200)
         }
     }
+
+    //Gyroscope
+    private var gyroscopeSensorListener = object : SensorEventListener {
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+        }
+        override fun onSensorChanged(event: SensorEvent) {
+            val params = this@LoginActivity.window.attributes
+            if (event.sensor.type == Sensor.TYPE_GYROSCOPE) {
+                if(event.values[2] > 0.5f) { // anticlockwise
+                    val intent = Intent(this@LoginActivity,RegisterActivity::class.java)
+                    startActivity(intent)
+                } else if(event.values[2] < -0.5f) { // clockwise
+                    Toast.makeText(this@LoginActivity,"text",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    // Start can modify system settings panel to let user change the write
+    // settings permission.
+    private fun changeWriteSettingsPermission(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+        context.startActivity(intent)
+    }
+
+    // This function only take effect in real physical android device,
+    // it can not take effect in android emulator.
+    private fun changeScreenBrightness(
+        context: Context,
+        screenBrightnessValue: Int
+    ) {   // Change the screen brightness change mode to manual.
+        Settings.System.putInt(
+            context.contentResolver,
+            Settings.System.SCREEN_BRIGHTNESS_MODE,
+            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL
+        )
+        // Apply the screen brightness value to the system, this will change
+        // the value in Settings ---> Display ---> Brightness level.
+        // It will also change the screen brightness for the device.
+        Settings.System.putInt(
+            context.contentResolver, Settings.System.SCREEN_BRIGHTNESS, screenBrightnessValue
+        )
+
+    }
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun hasWriteSettingsPermission(context: Context): Boolean {
+        var ret = true
+        // Get the result from below code.
+        ret = Settings.System.canWrite(context)
+        return ret
+    }
+
+    private var LightListener = object : SensorEventListener {
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+        }
+        @RequiresApi(Build.VERSION_CODES.M)
+        override fun onSensorChanged(event: SensorEvent) {
+            val params = this@LoginActivity.window.attributes
+            if (event.sensor.type == Sensor.TYPE_GYROSCOPE) {
+                if(event.values[2] > 50) { // anticlockwise
+
+                    // If do not have then open the Can modify system settings panel.
+                    // Check whether has the write settings permission or not.
+                    val settingsCanWrite = hasWriteSettingsPermission(this@LoginActivity)
+                    if (!settingsCanWrite) {
+                        changeWriteSettingsPermission(this@LoginActivity)
+                    } else {
+                        changeScreenBrightness(this@LoginActivity, 1)
+                    }
+                } else if(event.values[2] < 120) { // clockwise
+                    val settingsCanWrite = hasWriteSettingsPermission(this@LoginActivity)
+                    if (!settingsCanWrite) {
+                        changeWriteSettingsPermission(this@LoginActivity)
+                    } else {
+                        changeScreenBrightness(this@LoginActivity, 255)
+                    }
+                }
+            }
+        }
 }

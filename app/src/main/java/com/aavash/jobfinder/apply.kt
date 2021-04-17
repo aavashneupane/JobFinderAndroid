@@ -19,6 +19,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
+import java.util.*
 
 class apply : AppCompatActivity() {
    lateinit var textJobname: TextView
@@ -108,8 +110,10 @@ class apply : AppCompatActivity() {
                     jobprice.setText(response.data!!.jobprice)
                     requiredexperience.setText(response.data!!.requiredexperience)
                     creator.setText(response.data!!.creator?.company)
-                    createdat.setText(response.data!!.createdAt)
+                    //createdat.setText(response.data!!.createdAt)
 //
+                    var date=(response.data!!.createdAt)
+                    createdat.text ="You applied in: "+ date?.let { convertDate(it) }
 //                    //to set image
                     val imagePath = ServiceBuilder.loadImagePath() + response.data!!.photo!!.replace("\\", "/");
 //
@@ -156,6 +160,11 @@ class apply : AppCompatActivity() {
                 }
             }
         }
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertDate(date:String): Date {
+        val dates = Date.from(Instant.parse(date))
+        return dates
     }
 
     }

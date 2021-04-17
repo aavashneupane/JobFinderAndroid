@@ -71,13 +71,28 @@ class registration : AppCompatActivity(), View.OnClickListener {
                         if(response.success==true){
                             ServiceBuilder.token = response.token
                             withContext(Dispatchers.Main){
-                                Toast.makeText(this@registration, "Success", Toast.LENGTH_LONG).show()
-                                startActivity(
+
+                                val builder = android.app.AlertDialog.Builder(this@registration)
+                                builder.setTitle("Registration successfull")
+                                       builder.setMessage("Please login and fill your details.")
+                                builder.setIcon(android.R.drawable.btn_star)
+                                builder.setPositiveButton("Close") { _, _ ->
+
+                                    startActivity(
                                         Intent(
-                                                this@registration,
-                                                LoginActivity::class.java
+                                            this@registration,
+                                            LoginActivity::class.java
                                         )
-                                )
+                                    )
+                                }
+
+                                val alertDialog: android.app.AlertDialog = builder.create()
+                                alertDialog.setCancelable(false)
+                                alertDialog.show()
+
+
+
+
                             }
                         }else{
                             withContext(Dispatchers.Main){

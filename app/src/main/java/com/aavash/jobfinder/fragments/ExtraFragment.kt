@@ -1,24 +1,20 @@
 package com.aavash.jobfinder.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.webkit.WebView
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.aavash.jobfinder.MapsActivity
 import com.aavash.jobfinder.R
-import com.aavash.jobfinder.adapter.AppliedAdapter
-import com.aavash.jobfinder.entity.Applied
-import com.aavash.jobfinder.userRepository.appliedRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ExtraFragment : Fragment() {
 
+    private lateinit var webview:WebView
+    private lateinit var btnMap:Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +23,21 @@ class ExtraFragment : Fragment() {
 
 
         val root = inflater.inflate(R.layout.fragment_extra, container, false)
+        webview=root.findViewById(R.id.webview)
+        btnMap=root.findViewById(R.id.btnMap)
+
+
+
+        btnMap.setOnClickListener {
+            val intent=Intent(context, MapsActivity::class.java)
+            context?.startActivity(intent)
+        }
+
+        webview.loadUrl("https://softwarica.edu.np/about-softwarica/")
 
         return root
+
+
 
     }
 

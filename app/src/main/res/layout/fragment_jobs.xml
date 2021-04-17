@@ -9,12 +9,13 @@
     android:layout_height="match_parent">
 
     <Button
+        android:clickable="false"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/proximanovaregular"
-        android:text="Jobs Available right now"
+        android:text="My Applied Jobs"
         android:textColor="#424242"
         android:textSize="21sp"
         android:textStyle="bold"

@@ -1,35 +1,48 @@
 package com.aavash.jobfinderwear
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
-import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.aavash.jobfinderwear.api.ServiceBuilder
 import com.aavash.jobfinderwear.entity.User
 import com.aavash.jobfinderwear.repository.UserRepository
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class loginActivity : AppCompatActivity() {
     private lateinit var atvEmailLog: AutoCompleteTextView
     private lateinit var atvPasswordLog: AutoCompleteTextView
     private lateinit var btnSignIn: Button
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+//        if (Build.VERSION.SDK_INT > 9) {
+//            val policy =
+//                StrictMode.ThreadPolicy.Builder().permitAll().build()
+//            StrictMode.setThreadPolicy(policy)
+//        }
+
+
+
 
         atvEmailLog=findViewById(R.id.atvEmailLog)
         atvPasswordLog=findViewById(R.id.atvPasswordLog)
 
         btnSignIn=findViewById(R.id.btnSignIn)
+
+        getShared()
+        login()
 
         btnSignIn.setOnClickListener{
             if (isValid()) {
@@ -68,24 +81,24 @@ class loginActivity : AppCompatActivity() {
                         )
                     )
                     finish()
-
+                    saveSharedPref()
 
 
                 } else {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(
-                            this@loginActivity,
-                            "Invalid credentials", Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@loginActivity,
+//                            "Invalid credentials", Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
 
             } catch (ex: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@loginActivity,
-                        "Login error", Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@loginActivity,
+//                        "", Toast.LENGTH_SHORT
+//                    ).show()
 
                 }
             }
@@ -108,4 +121,32 @@ class loginActivity : AppCompatActivity() {
 
 
     }
+    private fun saveSharedPref(){
+
+        val email=atvEmailLog.text.toString()
+        val password = atvPasswordLog.text.toString()
+        val sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE)
+
+        val editor =sharedPref.edit()
+        editor.putString("email",email)
+        editor.putString("password",password)
+        editor.apply()
+//        Toast.makeText(
+//                this@LoginActivity,
+//                "Username and password saved",
+//                Toast.LENGTH_SHORT
+//        ).show()
+
+
+
+    }
+    fun getShared(){
+        val sharedPref = getSharedPreferences("MyPref", MODE_PRIVATE)
+        val email = sharedPref.getString("email", "")
+        val password = sharedPref.getString("password", "")
+        atvEmailLog.setText(email)
+        atvPasswordLog.setText(password)
+    }
+
+
 }
