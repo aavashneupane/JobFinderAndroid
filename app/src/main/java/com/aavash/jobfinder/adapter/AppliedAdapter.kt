@@ -106,19 +106,19 @@ class AppliedAdapter(
 
             } else {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                            context,
-                            "Cannot delete.", Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                            context,
+//                            "Cannot delete.", Toast.LENGTH_SHORT
+//                    ).show()
                 }
             }
 
         } catch (ex: Exception) {
             withContext(Dispatchers.Main) {
-                Toast.makeText(
-                        context,
-                        "Error", Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                        context,
+//                        "Error", Toast.LENGTH_SHORT
+//                ).show()
 
             }
         }

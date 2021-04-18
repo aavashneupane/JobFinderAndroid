@@ -1,24 +1,21 @@
 package com.aavash.jobfinder
 
-import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import com.aavash.jobfinder.api.ServiceBuilder
+import com.aavash.jobfinder.entity.Applied
+import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.userRepository.UserRepository
 import com.aavash.jobfinder.userRepository.jobRepository
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_splash.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.time.Instant
 import java.util.*
 
@@ -66,14 +63,20 @@ class apply : AppCompatActivity() {
 
                 val repository = jobRepository()
                 val response = repository.applyJob(id)
+      //  val appp=Applied("","","","","","","")
                 if (response.success==true) {
                     Toast.makeText(
                         this@apply,
                         "Applied successfully", Toast.LENGTH_SHORT
                     ).show()
+
+             //       JobDB.getInstance(this@apply).getJobDAO().applyJob(appp)
+                        //JobDB.getInstance
+                    // (this@apply).getJobDAO().applyJob(Job())
+
                     val b= com.aavash.jobfinder.Helper.Notification
 
-                    b.givenotification(this@apply,"Booked for $a job.")
+                    b.givenotification(this@apply,"Applied for $a job.")
 
                 } else {
                     withContext(Dispatchers.Main) {
@@ -128,7 +131,7 @@ class apply : AppCompatActivity() {
                     buttonApply.setOnClickListener {
                         val builder = android.app.AlertDialog.Builder(this@apply)
                         builder.setTitle("Apply for this job?")
-                        builder.setMessage("Are you sure you want to apply in ${id}??")
+                        builder.setMessage("Are you sure you want to apply in ${(response.data!!.jobtitle)}??")
                         builder.setIcon(android.R.drawable.ic_dialog_alert)
                         builder.setPositiveButton("Yes") { _, _ ->
                             if (id != null) {

@@ -11,6 +11,8 @@ import com.aavash.jobfinder.response.JobResponse
 import com.aavash.jobfinder.response.LoginResponse
 import com.aavash.jobfinder.response.RegisterResponse
 import com.aavash.jobfinder.response.UserResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class UserRepository:
     MyApiRequest() {
@@ -36,6 +38,12 @@ class UserRepository:
     suspend fun editUser(id: String,firstname: String,lastname: String,age: String,address: String,phone: String,userbio: String,projects: String,experience: String): UserResponse {
         return apiRequest {
             userAPI.editUser(ServiceBuilder.token!!,id, firstname,lastname,age,address,phone,userbio,projects,experience)
+        }
+    }
+
+    suspend fun uploadImg(id: String,body: MultipartBody.Part): UserResponse {
+        return apiRequest {
+            userAPI.editPic(ServiceBuilder.token!!,id, body)
         }
     }
 

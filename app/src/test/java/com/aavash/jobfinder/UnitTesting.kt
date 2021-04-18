@@ -27,7 +27,7 @@ class UnitTesting {
     @Test
     fun RegisterUser()= runBlocking {
 
-        val user= User("","test","unit","23","nepal","2323232323","testunit@gmail.com","password","Customer")
+        val user= User("","test","unit","23","nepal","2323232323","testunis@gmail.com","password","Customer")
         userRepository= UserRepository()
         val response = userRepository.registerUser(user)
         val expectedResult =true
@@ -37,7 +37,7 @@ class UnitTesting {
     @Test
     fun DuplicateRegisterUser()= runBlocking {
 
-        val user= User("","test","unit","23","nepal","2323232323","testunit2@gmail.com","password","Customer")
+        val user= User("","test","unit","23","nepal","2323232323","testunis@gmail.com","password","Customer")
         userRepository= UserRepository()
         val response = userRepository.registerUser(user)
         val expectedResult =true
@@ -47,44 +47,15 @@ class UnitTesting {
 //
     @Test
     fun getuserprofile()= runBlocking {
-        userRepository= UserRepository()
-        val response = userRepository.getUser()
-        val expectedResult =true
-        val actualResult=response.success
-        Assert.assertEquals(expectedResult,actualResult)
+    userRepository= UserRepository()
+    val response = userRepository.checkUser("aavashe@gmail.com", "password")
+    val expectedResult =true
+    val actualResult=response.success
+    Assert.assertEquals(expectedResult,actualResult)
     }
 //
 //
-//    //...............For Package Testing.....................//
-//    @Test
-//    fun showalljobs()= runBlocking {
-//        jobRepository= jobRepository()
-//        val response = jobRepository.getJobs()
-//        val expectedResult =true
-//        val actualResult=response.success
-//        Assert.assertEquals(expectedResult,actualResult)
-//    }
-//
-//    @Test
-//    fun getsinglejob(id:String) = runBlocking {
-//        userRepository=UserRepository()
-//        jobRepository= jobRepository()
-//        val response = jobRepository.getSingleJob(id)
-//        val expectedResult =true
-//        val actualResult=response.success
-//        Assert.assertEquals(expectedResult,actualResult)
-//    }
-//
-//    //.................applied Testing.......................///
-//
-//    @Test
-//    fun showMyApplied()= runBlocking {
-//        appliedRepository= appliedRepository()
-//        val responses = appliedRepository.deleteJob("607b02e081337e153055824b")
-//        val expectedResult =true
-//        val actualResult=responses.success
-//        Assert.assertEquals(expectedResult,actualResult)
-//    }
+
 //
 
 }

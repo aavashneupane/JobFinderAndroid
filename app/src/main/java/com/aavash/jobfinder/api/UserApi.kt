@@ -5,6 +5,7 @@ import com.aavash.jobfinder.entity.User
 import com.aavash.jobfinder.response.LoginResponse
 import com.aavash.jobfinder.response.RegisterResponse
 import com.aavash.jobfinder.response.UserResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -42,6 +43,17 @@ interface UserApi {
         @Field ("userbio") userbio : String,
         @Field ("projects") projects : String,
         @Field ("experience") experience : String
+
+    ):Response<UserResponse>
+
+
+
+    @Multipart
+    @PUT("profile/editPicture/{id}")
+    suspend fun editPic(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Part photo:MultipartBody.Part
 
     ):Response<UserResponse>
 }

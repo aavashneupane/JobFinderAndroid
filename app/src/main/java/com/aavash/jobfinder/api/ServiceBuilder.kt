@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceBuilder {
     private const val BASE_URL = "http://10.0.2.2:91/"
 //    private const val BASE_URL = "http://localhost:91/"
-  // private const val BASE_URL = "http://192.168.42.127:91/"
+//   private const val BASE_URL = "http://192.168.42.244:91/"
     var token :String? = null
 
     val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -32,4 +32,7 @@ object ServiceBuilder {
         val arr = BASE_URL.split("/").toTypedArray()
         return arr[0] + "//" + arr[1] + arr[2] + "/"
     }
+
+
+
 }

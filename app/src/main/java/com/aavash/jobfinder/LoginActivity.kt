@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -22,6 +23,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.aavash.jobfinder.api.ServiceBuilder
 import com.aavash.jobfinder.api.ServiceBuilder.token
 //import com.aavash.jobfinder.db.UserDB
@@ -86,6 +88,13 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
             lightSensor,
             SensorManager.SENSOR_DELAY_NORMAL
         )
+
+        //requestPermission()
+
+        if(hasPermission()){
+            requestPermission()
+        }
+
 
         btnSignIn = findViewById(R.id.btnSignIn)
         btnSignUp = findViewById(R.id.btnSignUp)
@@ -353,5 +362,25 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            this@LoginActivity,
+            permissions, 1
+        )
+    }
+    private fun hasPermission(): Boolean {
+        var hasPermission = true
+        for (permission in permissions) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                hasPermission = false
+            }
+        }
+        return hasPermission
     }
 }

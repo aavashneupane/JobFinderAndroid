@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aavash.jobfinder.R
 import com.aavash.jobfinder.adapter.AppliedAdapter
 import com.aavash.jobfinder.adapter.JobAdapter
+
 import com.aavash.jobfinder.entity.Applied
 import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.userRepository.appliedRepository
@@ -46,9 +47,9 @@ class HomeFragment : Fragment() {
         ViewCompat.setNestedScrollingEnabled(imgSlider, false)
 
 
-        imageList.add(SlideModel("https://test.tranquilityspa.com.np//storage/banners/September2019/15675885180.jpg"))
-        imageList.add(SlideModel("https://test.tranquilityspa.com.np//storage/banners/September2019/15675884740.jpg"))
-        imageList.add(SlideModel("https://test.tranquilityspa.com.np//storage/banners/September2019/15675884940.jpg"))
+        imageList.add(SlideModel("https://24option-france.com/wp-content/uploads/2019/07/job_search_online.jpg"))
+        imageList.add(SlideModel("https://static3.bigstockphoto.com/3/6/6/large1500/6637292.jpg"))
+        imageList.add(SlideModel("https://www.thebalancecareers.com/thmb/la332AU3WIapcB8yEiSJtog4f0g=/2121x1414/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1186821733-8293b36141c947c68f635ae24eecfaa3.jpg"))
         imgSlider.setImageList(imageList)
 
 
@@ -62,8 +63,6 @@ class HomeFragment : Fragment() {
                         JobList = response.data!!
                         rvJobs.adapter = context?.let { JobAdapter(it, JobList) }
                         rvJobs.layoutManager = LinearLayoutManager(context)
-
-
 
                     }
                 }

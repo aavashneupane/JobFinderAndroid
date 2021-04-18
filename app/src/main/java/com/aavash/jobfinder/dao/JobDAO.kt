@@ -1,20 +1,12 @@
 package com.aavash.jobfinder.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import com.aavash.jobfinder.entity.Applied
 import com.aavash.jobfinder.entity.Job
-
 
 @Dao
 interface JobDAO {
     @Insert
-    suspend fun insertJob(job : Job)
-
-    @Query("SELECT * FROM job")
-    suspend fun getAllJobs() : List<Job>
-
-    @Update
-    suspend fun updateJob(job : Job)
-
-    @Delete
-    suspend fun DeleteJob(job : Job)
+    suspend fun applyJob(job:Applied)
 }

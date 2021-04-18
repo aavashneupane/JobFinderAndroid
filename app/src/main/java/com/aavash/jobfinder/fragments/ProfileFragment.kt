@@ -1,8 +1,13 @@
 package com.aavash.jobfinder.fragments
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +15,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -29,6 +35,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
@@ -46,6 +60,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var profileIMG:ImageView
     private lateinit var imgLogout:ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,6 +132,7 @@ class ProfileFragment : Fragment() {
                     tvProfileProjects.setText(response.data!!.projects)
                     tvProfileAddress.setText(response.data!!.address)
                     tvFirstName.setText(name)
+                    val id=(response.data!!._id)
 
                     val imagePath = ServiceBuilder.loadImagePath() + response.data.photo!!.replace("\\", "/");
 
@@ -187,5 +203,8 @@ class ProfileFragment : Fragment() {
 
         context?.deleteSharedPreferences("MyPref");
     }
+
+
+
 
 }

@@ -37,10 +37,11 @@
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/imgSlider"
                 android:layout_width="match_parent"
-                android:layout_height="143dp"
+                android:layout_height="145dp"
                 app:iss_auto_cycle="true"
-
-                tools:ignore="MissingClass" />
+                app:iss_period="1000"
+                app:iss_delay="0"
+                />
 
 
             <androidx.recyclerview.widget.RecyclerView

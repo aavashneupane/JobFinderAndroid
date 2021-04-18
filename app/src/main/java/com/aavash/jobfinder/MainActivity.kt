@@ -146,9 +146,9 @@ private var proximitySensorEventListener = object : SensorEventListener {
             val params = this@MainActivity.window.attributes
             if (event.sensor.type == Sensor.TYPE_GYROSCOPE) {
                 if(event.values[2] > 0.5f) { // anticlockwise
-                    Toast.makeText(this@MainActivity,"message",Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this@MainActivity,"message",Toast.LENGTH_SHORT).show()
                 } else if(event.values[2] < -0.5f) { // clockwise
-                    Toast.makeText(this@MainActivity,"text",Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this@MainActivity,"text",Toast.LENGTH_SHORT).show()
                 }
 //                val rotationMatrix = FloatArray(16)
 //                SensorManager.getRotationMatrixFromVector(
