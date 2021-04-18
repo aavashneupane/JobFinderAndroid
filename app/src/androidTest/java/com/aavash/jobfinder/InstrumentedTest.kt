@@ -76,7 +76,7 @@ class InstrumentedTest {
         Thread.sleep(2000)
         Espresso.onView(ViewMatchers.withId(R.id.icJobs))
             .perform((ViewActions.click()))
-
+        Thread.sleep(2000)
         Espresso.onView(ViewMatchers.withId(R.id.textView2))
             .check(ViewAssertions.matches(ViewMatchers.withText("My Applied Jobs")))
 
@@ -141,14 +141,40 @@ class InstrumentedTest {
         Espresso.onView(ViewMatchers.withId(R.id.icProfile))
             .perform((ViewActions.click()))
 
-
-
         Thread.sleep(3000)
-        Espresso.onView(ViewMatchers.withId(R.id.personalinfobtn))
-            .check(ViewAssertions.matches(ViewMatchers.withText("User Info")))
+        Espresso.onView(ViewMatchers.withId(R.id.personalinfobtns))
+            .check(ViewAssertions.matches(ViewMatchers.withText("UserInfo")))
         Thread.sleep(3000)
 
     }
+    @Test
+    fun InsideProfile2(){
+
+        Espresso.onView(ViewMatchers.withId(R.id.atvEmailLog))
+            .perform(ViewActions.typeText("aavashe@gmail.com"))
+
+        Espresso.onView(ViewMatchers.withId(R.id.atvPasswordLog))
+            .perform(ViewActions.typeText("password"))
+
+        Espresso.closeSoftKeyboard()
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnSignIn))
+            .perform(ViewActions.click())
+
+        Thread.sleep(3000)
+        Espresso.onView(ViewMatchers.withId(R.id.icProfile))
+            .perform((ViewActions.click()))
+
+
+
+        Thread.sleep(3000)
+        Espresso.onView(ViewMatchers.withId(R.id.testContact))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Contact")))
+        Thread.sleep(3000)
+
+    }
+
+
     @Test
     fun unsuccesfull(){
 

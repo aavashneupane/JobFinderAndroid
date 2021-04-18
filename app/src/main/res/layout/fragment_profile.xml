@@ -96,7 +96,7 @@
                     <ImageView
                         android:id="@+id/profileIMG"
                         android:layout_width="150dp"
-                        android:layout_height="90dp"
+                        android:layout_height="80dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/pp" />
 
@@ -222,14 +222,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/personalinfobtn"
+                    android:id="@+id/personalinfobtns"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:fontFamily="@font/proximanovaregular"
                     android:gravity="center"
                     android:padding="13dp"
-                    android:text="User Info"
+                    android:text="UserInfo"
                     android:textAllCaps="true"
                     android:textColor="@color/blue"
                     android:textSize="14sp"
@@ -300,9 +300,10 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/aboutme"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/about_me"
+                                android:text="ABOUT"
                                 android:fontFamily="@font/proximanovaregular"
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
@@ -347,6 +348,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/testContact"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Contact"
