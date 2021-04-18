@@ -19,18 +19,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <TextView
+                android:id="@+id/testhome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="My Dashboard"
+                android:text="Find your dream jobs"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imgSlider"
+                android:layout_width="match_parent"
+                android:layout_height="143dp"
+                app:iss_auto_cycle="true"
+
+                tools:ignore="MissingClass" />
 
 
             <androidx.recyclerview.widget.RecyclerView

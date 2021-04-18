@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,8 @@ import com.aavash.jobfinder.entity.Applied
 import com.aavash.jobfinder.entity.Job
 import com.aavash.jobfinder.userRepository.appliedRepository
 import com.aavash.jobfinder.userRepository.jobRepository
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.models.SlideModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -27,7 +30,8 @@ class HomeFragment : Fragment() {
 
     private var JobList = mutableListOf<Job>()
     private lateinit var rvJobs: RecyclerView
-
+    private lateinit var imgSlider: ImageSlider
+    val imageList=ArrayList<SlideModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +41,16 @@ class HomeFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         rvJobs=root.findViewById(R.id.rvJobs)
+        imgSlider = root.findViewById(R.id.imgSlider)
+
+        ViewCompat.setNestedScrollingEnabled(imgSlider, false)
+
+
+        imageList.add(SlideModel("https://test.tranquilityspa.com.np//storage/banners/September2019/15675885180.jpg"))
+        imageList.add(SlideModel("https://test.tranquilityspa.com.np//storage/banners/September2019/15675884740.jpg"))
+        imageList.add(SlideModel("https://test.tranquilityspa.com.np//storage/banners/September2019/15675884940.jpg"))
+        imgSlider.setImageList(imageList)
+
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
